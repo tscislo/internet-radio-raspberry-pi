@@ -2,8 +2,6 @@ import sys, os, subprocess
 from subprocess import check_output
 print "Internet Radio"
 
-
-
 # subprocess.Popen(['mocp', '-a', './streams/all.m3u', '-c', '-p'])
 
 
@@ -32,4 +30,7 @@ def getState():
             splittedStateJSON[splittedStateItem.split(':')[0]] = splittedStateItem.split(':')[1].strip(' \t\n\r')
     return splittedStateJSON
 
-print getState()['State']
+mocpState = getState()
+print mocpState['State']
+if 'Title' in mocpState:
+    print 'Playing... ' + mocpState['Title']
