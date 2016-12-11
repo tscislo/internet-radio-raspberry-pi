@@ -2,29 +2,18 @@ import sys, os, subprocess
 from subprocess import check_output
 from threading import Thread
 from time import sleep
+import time
 from statusThread import StatusThread
+from radioControl import RadioControl
 
-#subprocess.Popen(['mocp', '-a', './streams/all.m3u', '-c', '-p'])
-
-
-# print "Playing... " + sys.argv[1]
-
-
-# def play_next():
-#     if (os.path.exists(os.getenv('HOME')+'/.moc/pid')):
-#         print "Next"
-#         subprocess.Popen(['mocp', '--next'])
-#     else:
-#         print "Play"
-#         subprocess.Popen(['mocp', '--play'])
-#
-# play_next()
-
-# subprocess.Popen(['mocp', '-a', radio_stations[sys.argv[1]], '-c', '-p'])
-# subprocess.Popen(['mocp', '-i'])
-
-
+print('Internet Radio started!')
+subprocess.Popen(['mocp', '-a', './streams/all.m3u', '-c'])
 
 if __name__ == "__main__":
+    radioControl = RadioControl()
     statusThread = StatusThread()
     statusThread.start()
+    radioControl.statusThread = statusThread
+    while True:
+        time.sleep(7)
+        radioControl.next()

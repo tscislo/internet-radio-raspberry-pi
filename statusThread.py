@@ -6,18 +6,18 @@ from subprocess import check_output
 class StatusThread(Thread):
     def __init__(self):
         ''' Constructor. '''
-
+        self.state = "INIT"
         Thread.__init__(self)
 
     def run(self):
-        while(True):
+        while (True):
             self.getPlaybackState(self)
-            time.sleep(3)
+            time.sleep(0.1)
 
     def getState(self):
         splittedStateJSON = {}
         try:
-            state = check_output(['mocp', '--info'])
+            state = check_output(['mocp', '--info']).decode("utf-8")
             splittedState = state.split('\n')
             for splittedStateItem in splittedState:
                 if splittedStateItem != "":
@@ -28,14 +28,14 @@ class StatusThread(Thread):
             pass
         return splittedStateJSON
 
-
     def getPlaybackState(self, thread):
-        print '\n---------------------------'
-        print 'Internet radio status checking...'
+        # print('\n---------------------------')
         mocpState = self.getState()
         if 'Error' in mocpState:
-            print mocpState['Error']
+            self.state = "ERROR"
         if 'State' in mocpState:
-            print 'State: ' + mocpState['State']
-        if 'Title' in mocpState:
-            print 'Playing... ' + mocpState['Title']
+            self.state = mocpState['State']
+        # if self.state:
+        #     print(self.state)
+        # if 'Title' in mocpState:
+        #     print('Playing... ' + mocpState['Title'])
