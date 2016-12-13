@@ -1,7 +1,4 @@
 import sys, os, subprocess
-from subprocess import check_output
-from threading import Thread
-from time import sleep
 import time
 from statusThread import StatusThread
 from radioControl import RadioControl

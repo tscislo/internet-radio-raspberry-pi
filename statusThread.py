@@ -8,6 +8,7 @@ class StatusThread(Thread):
         ''' Constructor. '''
         self.state = "INIT"
         Thread.__init__(self)
+        self.daemon = True
 
     def run(self):
         while (True):
