@@ -7,13 +7,15 @@ class StatusThread(Thread):
     def __init__(self):
         ''' Constructor. '''
         self.state = "INIT"
+        self.piFaceThread=""
         Thread.__init__(self)
-        self.daemon = True
+        # self.daemon = True
 
     def run(self):
+        print('StatusThread')
         while (True):
-            self.getPlaybackState(self)
-            time.sleep(0.1)
+            self.getPlaybackState()
+            time.sleep(1)
 
     def getState(self):
         splittedStateJSON = {}
@@ -29,8 +31,7 @@ class StatusThread(Thread):
             pass
         return splittedStateJSON
 
-    def getPlaybackState(self, thread):
-        # print('\n---------------------------')
+    def getPlaybackState(self):
         mocpState = self.getState()
         if 'Error' in mocpState:
             self.state = "ERROR"
@@ -38,5 +39,8 @@ class StatusThread(Thread):
             self.state = mocpState['State']
         # if self.state:
         #     print(self.state)
-        # if 'Title' in mocpState:
-        #     print('Playing... ' + mocpState['Title'])
+        if 'Title' in mocpState:
+            msg = ' Playing... ' + mocpState['Title']
+            #print(msg)
+            self.piFaceThread.clear()
+            self.piFaceThread.write(msg, 0)
