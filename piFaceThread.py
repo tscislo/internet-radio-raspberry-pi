@@ -15,6 +15,7 @@ class PiFaceThread(Thread):
         cad.lcd.backlight_on()
         cad.lcd.blink_off()
         cad.lcd.cursor_off()
+        self.daemon = True
 
     def run(self):
         print('start PiFaceThread')
