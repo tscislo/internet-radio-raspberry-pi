@@ -1,5 +1,4 @@
 from threading import Thread
-import pifacecad_emulator as pifacecad
 import time
 
 
@@ -13,7 +12,7 @@ class SimulateThread(Thread):
     def run(self):
         print('start SimulateThread')
         while (True):
-            time.sleep(15)
+            time.sleep(10)
             self.radioControl.next()
 
 

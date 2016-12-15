@@ -1,13 +1,13 @@
 from threading import Thread
 import time
 from subprocess import check_output
+from piFaceThread import PiFaceThread
 
 
 class StatusThread(Thread):
     def __init__(self):
         ''' Constructor. '''
         self.state = "INIT"
-        self.piFaceThread=""
         Thread.__init__(self)
         # self.daemon = True
 
@@ -15,7 +15,7 @@ class StatusThread(Thread):
         print('StatusThread')
         while (True):
             self.getPlaybackState()
-            time.sleep(1)
+            time.sleep(0.2)
 
     def getState(self):
         splittedStateJSON = {}
@@ -31,6 +31,7 @@ class StatusThread(Thread):
             pass
         return splittedStateJSON
 
+
     def getPlaybackState(self):
         mocpState = self.getState()
         if 'Error' in mocpState:
@@ -40,7 +41,6 @@ class StatusThread(Thread):
         # if self.state:
         #     print(self.state)
         if 'Title' in mocpState:
-            msg = ' Playing... ' + mocpState['Title']
-            #print(msg)
-            self.piFaceThread.clear()
+            msg = mocpState['Title']
             self.piFaceThread.write(msg, 0)
+
