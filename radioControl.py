@@ -5,6 +5,7 @@ class RadioControl():
     def __init__(self):
         ''' Constructor. '''
         self.statusThread = ""
+        self.piFaceThread = ""
         self.idx = 0
         self.list = [
             {
@@ -70,6 +71,7 @@ class RadioControl():
             pass
 
     def play_pause(self):
+        self.piFaceThread.enableBacklight()
         if self.statusThread.state == 'PLAY':
             print('Pausing...')
             subprocess.Popen(['mocp', '--pause'], shell=False)
@@ -79,6 +81,7 @@ class RadioControl():
             subprocess.Popen(['mocp', '-a', './streams/' + self.getCurrentListItem()['file'], '-c', '-p'])
 
     def next(self):
+        self.piFaceThread.enableBacklight()
         self.startStatusThread()
         nextListItem = self.getNextListItem()
         print('Next... ' + nextListItem['name'])
@@ -86,6 +89,7 @@ class RadioControl():
         subprocess.Popen(['mocp', '-a', './streams/' + nextListItem['file'], '-c', '-p'])
 
     def previous(self):
+        self.piFaceThread.enableBacklight()
         self.startStatusThread()
         prevListItem = self.getPrevListItem()
         print('Previous... ' + prevListItem['name'])

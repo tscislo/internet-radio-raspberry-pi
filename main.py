@@ -16,6 +16,7 @@ if __name__ == "__main__":
     statusThread.piFaceThread = piFaceThread
     simulateThread = SimulateThread()
     radioControl.statusThread = statusThread
+    radioControl.piFaceThread = piFaceThread
     simulateThread.radioControl = radioControl
     statusThread.radioControl = radioControl
     piFaceThread.start()
