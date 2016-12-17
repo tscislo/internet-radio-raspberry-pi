@@ -15,7 +15,6 @@ class PiFaceThread(Thread):
         cad.lcd.backlight_on()
         cad.lcd.blink_off()
         cad.lcd.cursor_off()
-        self.daemon = True
 
     def run(self):
         print('start PiFaceThread')
@@ -25,7 +24,7 @@ class PiFaceThread(Thread):
                 cad.lcd.set_cursor(0, self.row)
                 cad.lcd.write(self.newText)
                 self.oldText = self.newText
-            else:
+            elif len(self.newText) > 16:
                 cad.lcd.move_right()
             time.sleep(0.1)
 

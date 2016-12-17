@@ -8,7 +8,8 @@ from  piFaceThread import PiFaceThread
 if __name__ == "__main__":
     initialMsg = "Internet Radio..."
     print(initialMsg)
-    subprocess.Popen(['mocp', '-a', './streams/all.m3u', '-c'])
+    subprocess.Popen(['mocp', '-c'])
+    subprocess.Popen(['mocp', '--stop'])
     radioControl = RadioControl()
     statusThread = StatusThread()
     piFaceThread = PiFaceThread()
@@ -16,7 +17,7 @@ if __name__ == "__main__":
     simulateThread = SimulateThread()
     radioControl.statusThread = statusThread
     simulateThread.radioControl = radioControl
+    statusThread.radioControl = radioControl
     piFaceThread.start()
-    simulateThread.start()
-    statusThread.start()
     piFaceThread.write(initialMsg, 0)
+    simulateThread.start()

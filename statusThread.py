@@ -7,7 +7,8 @@ from piFaceThread import PiFaceThread
 class StatusThread(Thread):
     def __init__(self):
         ''' Constructor. '''
-        self.state = "INIT"
+        self.state = "STOP"
+        self.radioControl = ""
         Thread.__init__(self)
         self.daemon = True
 
@@ -34,13 +35,16 @@ class StatusThread(Thread):
 
     def getPlaybackState(self):
         mocpState = self.getState()
+        # print(self.radioControl.getCurrentListItem()['name'])
         if 'Error' in mocpState:
             self.state = "ERROR"
         if 'State' in mocpState:
             self.state = mocpState['State']
         # if self.state:
         #     print(self.state)
-        if 'Title' in mocpState:
-            msg = mocpState['Title']
-            self.piFaceThread.write(msg, 0)
+        if 'Title' in mocpState and mocpState['Title'] != "":
+            # mocpState['Title']
+            self.piFaceThread.write(self.radioControl.getCurrentListItem()['name'] + ' - ' + mocpState['Title'], 0)
+        else:
+            self.piFaceThread.write(self.radioControl.getCurrentListItem()['name'], 0)
 

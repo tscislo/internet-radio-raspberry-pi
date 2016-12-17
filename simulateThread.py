@@ -8,11 +8,13 @@ class SimulateThread(Thread):
         Thread.__init__(self)
         self.daemon = True
         self.radioControl=""
+        self.count = 0
 
     def run(self):
         print('start SimulateThread')
-        while (True):
+        while self.count <= 29:
             time.sleep(10)
-            self.radioControl.next()
+            self.count += 1
+            self.radioControl.previous()
 
 
