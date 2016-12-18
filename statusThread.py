@@ -1,7 +1,6 @@
 from threading import Thread
 import time
 from subprocess import check_output
-from piFaceThread import PiFaceThread
 
 
 class StatusThread(Thread):
