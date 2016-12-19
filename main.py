@@ -1,9 +1,10 @@
-import sys, os, subprocess
-from statusThread import StatusThread
-from radioControl import RadioControl
-from simulateThread import SimulateThread
-from  piFaceThread import PiFaceThread
+import subprocess
 
+from threads.simulateThread import SimulateThread
+from threads.statusThread import StatusThread
+
+from radioControl import RadioControl
+from threads.piFaceThread import PiFaceThread
 
 if __name__ == "__main__":
     initialMsg = "Internet Radio..."
@@ -13,6 +14,7 @@ if __name__ == "__main__":
     radioControl = RadioControl()
     statusThread = StatusThread()
     piFaceThread = PiFaceThread()
+    piFaceThread.piFaceSwitchesThread.radioControl = radioControl
     statusThread.piFaceThread = piFaceThread
     simulateThread = SimulateThread()
     radioControl.statusThread = statusThread
@@ -21,4 +23,4 @@ if __name__ == "__main__":
     statusThread.radioControl = radioControl
     piFaceThread.start()
     piFaceThread.write(initialMsg, 0)
-    simulateThread.start()
+    # simulateThread.start()

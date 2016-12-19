@@ -12,7 +12,7 @@ class SimulateThread(Thread):
 
     def run(self):
         print('start SimulateThread')
-        while self.count <= 29:
+        while self.count <= 290:
             time.sleep(10)
             self.count += 1
             self.radioControl.previous()

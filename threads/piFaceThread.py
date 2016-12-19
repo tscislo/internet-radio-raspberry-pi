@@ -1,8 +1,10 @@
 from threading import Thread
 import pifacecad_emulator as pifacecad
 import time
+from threads.piFaceSwitchesThread import PiFaceSwitchesThread
 
 cad = pifacecad.PiFaceCAD()
+
 
 # PLAY_SYMBOL = pifacecad.LCDBitmap(
 #     [0x10, 0x18, 0x1c, 0x1e, 0x1c, 0x18, 0x10, 0x0])
@@ -27,6 +29,9 @@ class PiFaceThread(Thread):
         self.newText = ""
         self.row = 0
         self.backLightTime = 0
+        self.piFaceSwitchesThread = PiFaceSwitchesThread()
+        self.piFaceSwitchesThread.cad = cad
+        self.piFaceSwitchesThread.start()
         cad.lcd.blink_off()
         cad.lcd.cursor_off()
         # cad.lcd.store_custom_bitmap(PLAY_SYMBOL_INDEX, PLAY_SYMBOL)
@@ -39,19 +44,22 @@ class PiFaceThread(Thread):
     def run(self):
         print('start PiFaceThread')
         while True:
-            if self.newText != self.oldText:
-                cad.lcd.clear()
-                cad.lcd.set_cursor(0, self.row)
-                cad.lcd.write(self.newText)
-                self.oldText = self.newText
-            elif len(self.newText) > 16:
-                cad.lcd.move_right()
-            if self.backLightTime > 0:
-                cad.lcd.backlight_on()
-                self.backLightTime -= 1
-            else:
-                cad.lcd.backlight_off()
+            self.handleDisplay()
             time.sleep(0.1)
+
+    def handleDisplay(self):
+        if self.newText != self.oldText:
+            cad.lcd.clear()
+            cad.lcd.set_cursor(0, self.row)
+            cad.lcd.write(self.newText)
+            self.oldText = self.newText
+        elif len(self.newText) > 16:
+            cad.lcd.move_right()
+        if self.backLightTime > 0:
+            cad.lcd.backlight_on()
+            self.backLightTime -= 1
+        else:
+            cad.lcd.backlight_off()
 
     def write(self, text, row):
         self.row = row;
