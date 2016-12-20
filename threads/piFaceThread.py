@@ -1,5 +1,7 @@
 from threading import Thread
-import pifacecad_emulator as pifacecad
+# Emulator
+# import pifacecad_emulator as pifacecad
+import pifacecad as pifacecad
 import time
 from threads.piFaceSwitchesThread import PiFaceSwitchesThread
 
