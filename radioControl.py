@@ -86,7 +86,7 @@ class RadioControl():
         nextListItem = self.getNextListItem()
         print('Next... ' + nextListItem['name'])
         subprocess.Popen(['mocp', '--stop'], shell=False)
-        subprocess.Popen(['mocp', '--clean'], shell=False)
+        subprocess.Popen(['mocp', '--clear'], shell=False)
         subprocess.Popen(['mocp', '-a', './streams/' + nextListItem['file'], '-c', '-p'])
 
     def previous(self):
@@ -95,5 +95,5 @@ class RadioControl():
         prevListItem = self.getPrevListItem()
         print('Previous... ' + prevListItem['name'])
         subprocess.Popen(['mocp', '--stop'], shell=False)
-        subprocess.Popen(['mocp', '--clean'], shell=False)
+        subprocess.Popen(['mocp', '--clear'], shell=False)
         subprocess.Popen(['mocp', '-a', './streams/' + prevListItem['file'], '-c', '-p'])

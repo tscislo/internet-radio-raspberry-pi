@@ -9,7 +9,7 @@ from threads.piFaceThread import PiFaceThread
 if __name__ == "__main__":
     initialMsg = "Internet Radio..."
     print(initialMsg)
-    subprocess.Popen(['mocp', '-c'])
+    subprocess.Popen(['mocp', '--clear'])
     subprocess.Popen(['mocp', '--stop'])
     radioControl = RadioControl()
     statusThread = StatusThread()
