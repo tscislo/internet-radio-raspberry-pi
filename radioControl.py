@@ -1,4 +1,7 @@
 import sys, os, subprocess
+import os
+
+dir_path = os.path.dirname(os.path.abspath(__file__))
 
 
 class RadioControl():
@@ -71,6 +74,7 @@ class RadioControl():
             pass
 
     def play_pause(self):
+        print(dir_path)
         self.piFaceThread.enableBacklight()
         if self.statusThread.state == 'PLAY':
             print('Pausing...')
@@ -78,7 +82,7 @@ class RadioControl():
         if self.statusThread.state == 'PAUSE' or self.statusThread.state == 'STOP':
             print('Playing...')
             self.startStatusThread()
-            subprocess.Popen(['mocp', '-a', './streams/' + self.getCurrentListItem()['file'], '-c', '-p'])
+            subprocess.Popen(['mocp', '-a', dir_path + '/streams/' + self.getCurrentListItem()['file'], '-c', '-p'])
 
     def next(self):
         self.piFaceThread.enableBacklight()
@@ -87,7 +91,7 @@ class RadioControl():
         print('Next... ' + nextListItem['name'])
         subprocess.Popen(['mocp', '--stop'], shell=False)
         subprocess.Popen(['mocp', '--clear'], shell=False)
-        subprocess.Popen(['mocp', '-a', './streams/' + nextListItem['file'], '-c', '-p'])
+        subprocess.Popen(['mocp', '-a', dir_path + '/streams/' + nextListItem['file'], '-c', '-p'])
 
     def previous(self):
         self.piFaceThread.enableBacklight()
@@ -96,4 +100,4 @@ class RadioControl():
         print('Previous... ' + prevListItem['name'])
         subprocess.Popen(['mocp', '--stop'], shell=False)
         subprocess.Popen(['mocp', '--clear'], shell=False)
-        subprocess.Popen(['mocp', '-a', './streams/' + prevListItem['file'], '-c', '-p'])
+        subprocess.Popen(['mocp', '-a', dir_path + '/streams/' + prevListItem['file'], '-c', '-p'])
