@@ -45,9 +45,19 @@ class PiFaceThread(Thread):
 
     def run(self):
         print('start PiFaceThread')
+        self.handleKeys()
         while True:
             self.handleDisplay()
             time.sleep(0.1)
+
+    def handleKey(self, event):
+        print(str(event.pin_num))
+
+    def handleKeys(self):
+        listener = pifacecad.SwitchEventListener(chip=cad)
+        for i in range(8):
+            listener.register(i, pifacecad.IODIR_FALLING_EDGE, self.handleKey)
+        listener.activate()
 
     def handleDisplay(self):
         if self.newText != self.oldText:
