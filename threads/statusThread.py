@@ -34,15 +34,11 @@ class StatusThread(Thread):
 
     def getPlaybackState(self):
         mocpState = self.getState()
-        # print(self.radioControl.getCurrentListItem()['name'])
         if 'Error' in mocpState:
             self.state = "ERROR"
         if 'State' in mocpState:
             self.state = mocpState['State']
-        # if self.state:
-        #     print(self.state)
         if 'Title' in mocpState and mocpState['Title'] != "":
-            # mocpState['Title']
             self.piFaceThread.write(self.radioControl.getCurrentListItem()['name'] + ' - ' + mocpState['Title'], 0)
         else:
             self.piFaceThread.write(self.radioControl.getCurrentListItem()['name'], 0)

@@ -6,20 +6,13 @@ import time
 
 cad = pifacecad.PiFaceCAD()
 
+PLAY_SYMBOL = pifacecad.LCDBitmap(
+    [0x10, 0x18, 0x1c, 0x1e, 0x1c, 0x18, 0x10, 0x0])
+PAUSE_SYMBOL = pifacecad.LCDBitmap(
+    [0x0, 0x1b, 0x1b, 0x1b, 0x1b, 0x1b, 0x0, 0x0])
 
-# PLAY_SYMBOL = pifacecad.LCDBitmap(
-#     [0x10, 0x18, 0x1c, 0x1e, 0x1c, 0x18, 0x10, 0x0])
-# PAUSE_SYMBOL = pifacecad.LCDBitmap(
-#     [0x0, 0x1b, 0x1b, 0x1b, 0x1b, 0x1b, 0x0, 0x0])
-# INFO_SYMBOL = pifacecad.LCDBitmap(
-#     [0x6, 0x6, 0x0, 0x1e, 0xe, 0xe, 0xe, 0x1f])
-# MUSIC_SYMBOL = pifacecad.LCDBitmap(
-#     [0x2, 0x3, 0x2, 0x2, 0xe, 0x1e, 0xc, 0x0])
-#
-# PLAY_SYMBOL_INDEX = 0
-# PAUSE_SYMBOL_INDEX = 1
-# INFO_SYMBOL_INDEX = 2
-# MUSIC_SYMBOL_INDEX = 3
+PLAY_SYMBOL_INDEX = 0
+PAUSE_SYMBOL_INDEX = 1
 
 
 class PiFaceThread(Thread):
@@ -28,14 +21,13 @@ class PiFaceThread(Thread):
         Thread.__init__(self)
         self.oldText = ""
         self.newText = ""
-        self.row = 0
+        self.bitmapSymbol = ""
         self.backLightTime = 0
         self.radioControl = ""
         cad.lcd.blink_off()
         cad.lcd.cursor_off()
-        # cad.lcd.store_custom_bitmap(PLAY_SYMBOL_INDEX, PLAY_SYMBOL)
-        # cad.lcd.store_custom_bitmap(PAUSE_SYMBOL_INDEX, PAUSE_SYMBOL)
-        # cad.lcd.store_custom_bitmap(INFO_SYMBOL_INDEX, INFO_SYMBOL)
+        cad.lcd.store_custom_bitmap(PLAY_SYMBOL_INDEX, PLAY_SYMBOL)
+        cad.lcd.store_custom_bitmap(PAUSE_SYMBOL_INDEX, PAUSE_SYMBOL)
 
     def enableBacklight(self):
         self.backLightTime = 100  # backlight on for 10 sec
@@ -45,7 +37,7 @@ class PiFaceThread(Thread):
         self.handleKeys()
         while True:
             self.handleDisplay()
-            time.sleep(0.1)
+            time.sleep(0.2)
 
     def handleKey(self, event):
         if event.pin_num == 0 or event.pin_num == 5:
@@ -65,7 +57,7 @@ class PiFaceThread(Thread):
         if self.newText != self.oldText:
             print(self.newText)
             cad.lcd.clear()
-            cad.lcd.set_cursor(0, self.row)
+            cad.lcd.set_cursor(0, 0)
             cad.lcd.write(self.newText[:40])
             self.oldText = self.newText
         elif len(self.newText) > 16:
@@ -76,6 +68,6 @@ class PiFaceThread(Thread):
         else:
             cad.lcd.backlight_off()
 
-    def write(self, text, row):
-        self.row = row
+    def write(self, text, bitmapSymbol):
         self.newText = text
+        self.bitmapSymbol = bitmapSymbol
