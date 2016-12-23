@@ -54,7 +54,6 @@ class RadioControl():
             self.idx = 0
         else:
             self.idx += 1
-        print(self.idx)
         return self.list[self.idx]
 
     def getPrevListItem(self):
@@ -74,7 +73,6 @@ class RadioControl():
             pass
 
     def play_pause(self):
-        print(dir_path)
         self.piFaceThread.enableBacklight()
         if self.statusThread.state == 'PLAY':
             print('Pausing...')

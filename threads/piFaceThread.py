@@ -3,7 +3,6 @@ from threading import Thread
 # import pifacecad_emulator as pifacecad
 import pifacecad as pifacecad
 import time
-from threads.piFaceSwitchesThread import PiFaceSwitchesThread
 
 cad = pifacecad.PiFaceCAD()
 
@@ -31,9 +30,7 @@ class PiFaceThread(Thread):
         self.newText = ""
         self.row = 0
         self.backLightTime = 0
-        self.piFaceSwitchesThread = PiFaceSwitchesThread()
-        self.piFaceSwitchesThread.cad = cad
-        self.piFaceSwitchesThread.start()
+        self.radioControl = ""
         cad.lcd.blink_off()
         cad.lcd.cursor_off()
         # cad.lcd.store_custom_bitmap(PLAY_SYMBOL_INDEX, PLAY_SYMBOL)
@@ -41,7 +38,7 @@ class PiFaceThread(Thread):
         # cad.lcd.store_custom_bitmap(INFO_SYMBOL_INDEX, INFO_SYMBOL)
 
     def enableBacklight(self):
-        self.backLightTime = 90  # backlight on for 9 sec
+        self.backLightTime = 100  # backlight on for 10 sec
 
     def run(self):
         print('start PiFaceThread')
@@ -51,7 +48,12 @@ class PiFaceThread(Thread):
             time.sleep(0.1)
 
     def handleKey(self, event):
-        print(str(event.pin_num))
+        if event.pin_num == 0 or event.pin_num == 5:
+            self.radioControl.play_pause()
+        elif event.pin_num == 1 or event.pin_num == 6:
+            self.radioControl.previous()
+        elif event.pin_num == 2 or event.pin_num == 7:
+            self.radioControl.next()
 
     def handleKeys(self):
         listener = pifacecad.SwitchEventListener(chip=cad)
@@ -66,7 +68,7 @@ class PiFaceThread(Thread):
             cad.lcd.write(self.newText)
             self.oldText = self.newText
         elif len(self.newText) > 16:
-            cad.lcd.move_right()
+            cad.lcd.move_left()
         if self.backLightTime > 0:
             cad.lcd.backlight_on()
             self.backLightTime -= 1
