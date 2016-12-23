@@ -63,9 +63,10 @@ class PiFaceThread(Thread):
 
     def handleDisplay(self):
         if self.newText != self.oldText:
+            print(self.newText)
             cad.lcd.clear()
             cad.lcd.set_cursor(0, self.row)
-            cad.lcd.write(self.newText)
+            cad.lcd.write(self.newText[:40])
             self.oldText = self.newText
         elif len(self.newText) > 16:
             cad.lcd.move_left()
@@ -76,5 +77,5 @@ class PiFaceThread(Thread):
             cad.lcd.backlight_off()
 
     def write(self, text, row):
-        self.row = row;
+        self.row = row
         self.newText = text
