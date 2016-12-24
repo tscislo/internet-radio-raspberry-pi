@@ -19,4 +19,4 @@ if __name__ == "__main__":
     radioControl.piFaceThread = piFaceThread
     statusThread.radioControl = radioControl
     piFaceThread.start()
-    piFaceThread.writeFirstLine(initialMsg)
+    piFaceThread.writeSecondLine(initialMsg)

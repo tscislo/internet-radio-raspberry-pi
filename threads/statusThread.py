@@ -1,7 +1,7 @@
 from threading import Thread
 import time
 from subprocess import check_output
-
+from piFaceBitmaps import bitmaps
 
 class StatusThread(Thread):
     def __init__(self):
@@ -39,7 +39,8 @@ class StatusThread(Thread):
         if 'State' in mocpState:
             self.state = mocpState['State']
         if 'Title' in mocpState and mocpState['Title'] != "":
-            self.piFaceThread.writeFirstLine(self.radioControl.getCurrentListItem()['name'] + ' - ' + mocpState['Title'])
+            self.piFaceThread.writeSecondLine(mocpState['Title'])
         else:
-            self.piFaceThread.writeFirstLine(self.radioControl.getCurrentListItem()['name'])
+            self.piFaceThread.writeSecondLine(" ")
+        self.piFaceThread.writeFirstLine(bitmaps[mocpState['State']]['idx'], self.radioControl.getCurrentListItem()['name'])
 

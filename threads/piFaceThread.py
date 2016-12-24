@@ -6,29 +6,19 @@ import time
 
 cad = pifacecad.PiFaceCAD()
 
-PLAY_SYMBOL = pifacecad.LCDBitmap(
-    [0x10, 0x18, 0x1c, 0x1e, 0x1c, 0x18, 0x10, 0x0])
-PAUSE_SYMBOL = pifacecad.LCDBitmap(
-    [0x0, 0x1b, 0x1b, 0x1b, 0x1b, 0x1b, 0x0, 0x0])
-
-PLAY_SYMBOL_INDEX = 0
-PAUSE_SYMBOL_INDEX = 1
-
 
 class PiFaceThread(Thread):
     def __init__(self):
         ''' Constructor. '''
         Thread.__init__(self)
         self.firstLine = {'old': None, 'new': None}
-        self.secondLine = None
+        self.secondLine = {'state': None, 'radioStation': None}
         self.bitmapSymbol = None
         self.radioControl = None
         self.backLightTime = 0
         self.scrollCounter = 0
         cad.lcd.blink_off()
         cad.lcd.cursor_off()
-        cad.lcd.store_custom_bitmap(PLAY_SYMBOL_INDEX, PLAY_SYMBOL)
-        cad.lcd.store_custom_bitmap(PAUSE_SYMBOL_INDEX, PAUSE_SYMBOL)
 
     def enableBacklight(self):
         self.backLightTime = 100  # backlight on for 10 sec
@@ -66,22 +56,31 @@ class PiFaceThread(Thread):
         if self.firstLine['new'] != self.firstLine['old']:
             self.scrollCounter = 0
             cad.lcd.clear()
-            cad.lcd.set_cursor(0, 0)
+            cad.lcd.set_cursor(0, 1)
             cad.lcd.write(self.firstLine['new'][:16])
             self.firstLine['old'] = self.firstLine['new']
         elif len(self.firstLine['new']) > 16:
-            cad.lcd.set_cursor(0, 0)
+            cad.lcd.set_cursor(0, 1)
             cad.lcd.write(self.firstLine['new'][self.scrollCounter:self.scrollCounter + 16])
             if self.scrollCounter == len(self.firstLine['new']):
                 self.scrollCounter = 0
             else:
                 self.scrollCounter += 1
-        # cad.lcd.set_cursor(0, 1)
-        # cad.lcd.write(self.secondLine)
-
-
-    def writeFirstLine(self, text):
-        self.firstLine['new'] = text + " "
+        if self.secondLine['state'] != None:
+            cad.lcd.set_cursor(0, 0)
+            cad.lcd.write_custom_bitmap(self.secondLine['state'])
+        if self.secondLine['radioStation'] != None:
+            cad.lcd.set_cursor(2, 0)
+            cad.lcd.write(self.secondLine['radioStation'])
 
     def writeSecondLine(self, text):
-        self.secondLine = text
+        self.firstLine['new'] = text + " "
+
+    def writeFirstLine(self, state, radioStation):
+        self.secondLine['state'] = state
+        radioStation = radioStation[:15]
+        if len(radioStation) < 14:
+            diff = 14 - len(radioStation)
+            for i in range(0, diff):
+                radioStation += " "
+        self.secondLine['radioStation'] = radioStation[:15]
