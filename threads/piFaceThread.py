@@ -19,8 +19,8 @@ class PiFaceThread(Thread):
     def __init__(self):
         ''' Constructor. '''
         Thread.__init__(self)
-        self.oldText = None
-        self.newText = None
+        self.firstLine = {'old': None, 'new': None}
+        self.secondLine = None
         self.bitmapSymbol = None
         self.radioControl = None
         self.backLightTime = 0
@@ -63,20 +63,25 @@ class PiFaceThread(Thread):
             cad.lcd.backlight_off()
 
     def handleDisplay(self):
-        if self.newText != self.oldText:
+        if self.firstLine['new'] != self.firstLine['old']:
             self.scrollCounter = 0
             cad.lcd.clear()
             cad.lcd.set_cursor(0, 0)
-            cad.lcd.write(self.newText[:16])
-            self.oldText = self.newText
-        elif len(self.newText) > 16:
+            cad.lcd.write(self.firstLine['new'][:16])
+            self.firstLine['old'] = self.firstLine['new']
+        elif len(self.firstLine['new']) > 16:
             cad.lcd.set_cursor(0, 0)
-            cad.lcd.write(self.newText[self.scrollCounter:self.scrollCounter + 16])
-            if self.scrollCounter == len(self.newText):
+            cad.lcd.write(self.firstLine['new'][self.scrollCounter:self.scrollCounter + 16])
+            if self.scrollCounter == len(self.firstLine['new']):
                 self.scrollCounter = 0
             else:
                 self.scrollCounter += 1
+        # cad.lcd.set_cursor(0, 1)
+        # cad.lcd.write(self.secondLine)
+
 
     def writeFirstLine(self, text):
-        self.newText = text + " "
+        self.firstLine['new'] = text + " "
 
+    def writeSecondLine(self, text):
+        self.secondLine = text
