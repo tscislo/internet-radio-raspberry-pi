@@ -7,7 +7,7 @@ class StatusThread(Thread):
     def __init__(self):
         ''' Constructor. '''
         self.state = "STOP"
-        self.radioControl = ""
+        self.radioControl = None
         Thread.__init__(self)
         self.daemon = True
 
@@ -27,7 +27,7 @@ class StatusThread(Thread):
                     splittedStateJSON[splittedStateItem.split(':')[0]] = splittedStateItem.split(':')[1].strip(
                         ' \t\n\r')
         except:
-            splittedStateJSON['Error'] = 'Internet radio playback error!'
+            splittedStateJSON['Error'] = 'Unknown playback error!'
             pass
         return splittedStateJSON
 
@@ -39,7 +39,7 @@ class StatusThread(Thread):
         if 'State' in mocpState:
             self.state = mocpState['State']
         if 'Title' in mocpState and mocpState['Title'] != "":
-            self.piFaceThread.write(self.radioControl.getCurrentListItem()['name'] + ' - ' + mocpState['Title'], 0)
+            self.piFaceThread.writeFirstLine(self.radioControl.getCurrentListItem()['name'] + ' - ' + mocpState['Title'])
         else:
-            self.piFaceThread.write(self.radioControl.getCurrentListItem()['name'], 0)
+            self.piFaceThread.writeFirstLine(self.radioControl.getCurrentListItem()['name'])
 

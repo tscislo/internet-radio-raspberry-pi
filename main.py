@@ -1,6 +1,5 @@
 import subprocess
 
-from threads.simulateThread import SimulateThread
 from threads.statusThread import StatusThread
 
 from radioControl import RadioControl
@@ -16,10 +15,8 @@ if __name__ == "__main__":
     piFaceThread = PiFaceThread()
     piFaceThread.radioControl = radioControl
     statusThread.piFaceThread = piFaceThread
-    simulateThread = SimulateThread()
     radioControl.statusThread = statusThread
     radioControl.piFaceThread = piFaceThread
-    simulateThread.radioControl = radioControl
     statusThread.radioControl = radioControl
     piFaceThread.start()
-    piFaceThread.write(initialMsg, 0)
+    piFaceThread.writeFirstLine(initialMsg)

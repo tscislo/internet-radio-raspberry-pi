@@ -7,8 +7,8 @@ dir_path = os.path.dirname(os.path.abspath(__file__))
 class RadioControl():
     def __init__(self):
         ''' Constructor. '''
-        self.statusThread = ""
-        self.piFaceThread = ""
+        self.statusThread = None
+        self.piFaceThread = None
         self.idx = 0
         self.list = [
             {

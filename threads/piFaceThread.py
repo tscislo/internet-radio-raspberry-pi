@@ -19,11 +19,12 @@ class PiFaceThread(Thread):
     def __init__(self):
         ''' Constructor. '''
         Thread.__init__(self)
-        self.oldText = ""
-        self.newText = ""
-        self.bitmapSymbol = ""
+        self.oldText = None
+        self.newText = None
+        self.bitmapSymbol = None
+        self.radioControl = None
         self.backLightTime = 0
-        self.radioControl = ""
+        self.scrollCounter = 0
         cad.lcd.blink_off()
         cad.lcd.cursor_off()
         cad.lcd.store_custom_bitmap(PLAY_SYMBOL_INDEX, PLAY_SYMBOL)
@@ -37,7 +38,8 @@ class PiFaceThread(Thread):
         self.handleKeys()
         while True:
             self.handleDisplay()
-            time.sleep(0.2)
+            self.handleBacklight()
+            time.sleep(0.1)
 
     def handleKey(self, event):
         if event.pin_num == 0 or event.pin_num == 5:
@@ -53,21 +55,28 @@ class PiFaceThread(Thread):
             listener.register(i, pifacecad.IODIR_FALLING_EDGE, self.handleKey)
         listener.activate()
 
-    def handleDisplay(self):
-        if self.newText != self.oldText:
-            print(self.newText)
-            cad.lcd.clear()
-            cad.lcd.set_cursor(0, 0)
-            cad.lcd.write(self.newText[:40])
-            self.oldText = self.newText
-        elif len(self.newText) > 16:
-            cad.lcd.move_left()
+    def handleBacklight(self):
         if self.backLightTime > 0:
             cad.lcd.backlight_on()
             self.backLightTime -= 1
         else:
             cad.lcd.backlight_off()
 
-    def write(self, text, bitmapSymbol):
-        self.newText = text
-        self.bitmapSymbol = bitmapSymbol
+    def handleDisplay(self):
+        if self.newText != self.oldText:
+            self.scrollCounter = 0
+            cad.lcd.clear()
+            cad.lcd.set_cursor(0, 0)
+            cad.lcd.write(self.newText[:16])
+            self.oldText = self.newText
+        elif len(self.newText) > 16:
+            cad.lcd.set_cursor(0, 0)
+            cad.lcd.write(self.newText[self.scrollCounter:self.scrollCounter + 16])
+            if self.scrollCounter == len(self.newText):
+                self.scrollCounter = 0
+            else:
+                self.scrollCounter += 1
+
+    def writeFirstLine(self, text):
+        self.newText = text + " "
+
