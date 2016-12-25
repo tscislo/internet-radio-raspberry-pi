@@ -16,7 +16,7 @@ class RadioControl():
                 "file": "rmf_classic.m3u"
             },
             {
-                "name": "RMF Muzyka Filmowa",
+                "name": "RMF Filmowa",
                 "file": "rmf_muzykafilmowa.m3u"
             },
             {

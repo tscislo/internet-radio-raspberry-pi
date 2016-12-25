@@ -7,7 +7,5 @@ bitmaps['PAUSE'] = {'idx': 1, 'bitmap': pifacecad.LCDBitmap([0x0, 0x1b, 0x1b, 0x
 bitmaps['STOP'] = {'idx': 2, 'bitmap': pifacecad.LCDBitmap([0x0, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x0, 0x0])}
 bitmaps['ERROR'] = {'idx': 3, 'bitmap': pifacecad.LCDBitmap([0x0, 0x1b, 0xe, 0x4, 0xe, 0x1b, 0x0, 0x0])}
 
-cad.lcd.store_custom_bitmap(bitmaps['PLAY']['idx'], bitmaps['PLAY']['bitmap'])
-cad.lcd.store_custom_bitmap(bitmaps['PAUSE']['idx'], bitmaps['PAUSE']['bitmap'])
-cad.lcd.store_custom_bitmap(bitmaps['STOP']['idx'], bitmaps['STOP']['bitmap'])
-cad.lcd.store_custom_bitmap(bitmaps['ERROR']['idx'], bitmaps['ERROR']['bitmap'])
+for bitmap in bitmaps:
+    cad.lcd.store_custom_bitmap(bitmaps[bitmap]['idx'], bitmaps[bitmap]['bitmap'])
