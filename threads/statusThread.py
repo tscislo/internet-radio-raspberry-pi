@@ -17,7 +17,7 @@ class StatusThread(Thread):
             self.getPlaybackState()
             time.sleep(0.2)
 
-    def getState(self):
+    def getMocpState(self):
         splittedStateJSON = {}
         try:
             state = check_output(['mocp', '--info']).decode("utf-8")
@@ -32,7 +32,7 @@ class StatusThread(Thread):
         return splittedStateJSON
 
     def getPlaybackState(self):
-        mocpState = self.getState()
+        mocpState = self.getMocpState()
         if 'Error' in mocpState:
             self.state = "ERROR"
         if 'State' in mocpState:

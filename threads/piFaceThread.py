@@ -1,9 +1,6 @@
 from threading import Thread
-# Emulator
-# import pifacecad_emulator as pifacecad
 import pifacecad as pifacecad
 import time
-import sys, os, subprocess
 
 cad = pifacecad.PiFaceCAD()
 
