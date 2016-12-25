@@ -3,16 +3,16 @@ from threading import Thread
 # import pifacecad_emulator as pifacecad
 import pifacecad as pifacecad
 import time
+import sys, os, subprocess
 
 cad = pifacecad.PiFaceCAD()
-
 
 class PiFaceThread(Thread):
     def __init__(self):
         ''' Constructor. '''
         Thread.__init__(self)
-        self.firstLine = {'old': None, 'new': None}
-        self.secondLine = {'state': None, 'radioStation': None}
+        self.secondLine = {'old': None, 'new': None}
+        self.firstLine = {'state': None, 'radioStation': None}
         self.bitmapSymbol = None
         self.radioControl = None
         self.backLightTime = 0
@@ -53,25 +53,25 @@ class PiFaceThread(Thread):
             cad.lcd.backlight_off()
 
     def handleDisplay(self):
-        if self.firstLine['new'] != self.firstLine['old']:
+        if self.secondLine['new'] != self.secondLine['old']:
             self.scrollCounter = 0
             cad.lcd.clear()
             cad.lcd.set_cursor(0, 1)
-            cad.lcd.write(self.firstLine['new'][:16])
-            self.firstLine['old'] = self.firstLine['new']
-        elif self.firstLine['new'] and len(self.firstLine['new']) > 16:
+            cad.lcd.write(self.secondLine['new'][:16])
+            self.secondLine['old'] = self.secondLine['new']
+        elif self.secondLine['new'] and len(self.secondLine['new']) > 16:
             cad.lcd.set_cursor(0, 1)
-            cad.lcd.write(self.firstLine['new'][self.scrollCounter:self.scrollCounter + 16])
-            if self.scrollCounter == len(self.firstLine['new']):
+            cad.lcd.write(self.secondLine['new'][self.scrollCounter:self.scrollCounter + 16])
+            if self.scrollCounter == len(self.secondLine['new']):
                 self.scrollCounter = 0
             else:
                 self.scrollCounter += 1
-        if self.secondLine['state'] != None:
+        if self.firstLine['state'] != None:
             cad.lcd.set_cursor(0, 0)
-            cad.lcd.write_custom_bitmap(self.secondLine['state'])
-        if self.secondLine['radioStation'] != None:
+            cad.lcd.write_custom_bitmap(self.firstLine['state'])
+        if self.firstLine['radioStation'] != None:
             cad.lcd.set_cursor(2, 0)
-            cad.lcd.write(self.secondLine['radioStation'])
+            cad.lcd.write(self.firstLine['radioStation'])
 
     def processSettings(self):
         settingsFromFile = self.settings.get()
@@ -85,13 +85,16 @@ class PiFaceThread(Thread):
                 self.radioControl.play()
 
     def writeSecondLine(self, text):
-        self.firstLine['new'] = text + " "
+        self.secondLine['new'] = text + " "
+
+    def clearSecondLine(self):
+        self.secondLine['new'] = " "
 
     def writeFirstLine(self, state, radioStation):
-        self.secondLine['state'] = state
+        self.firstLine['state'] = state
         radioStation = radioStation[:15]
         if len(radioStation) < 14:
             diff = 14 - len(radioStation)
             for i in range(0, diff):
                 radioStation += " "
-        self.secondLine['radioStation'] = radioStation[:15]
+        self.firstLine['radioStation'] = radioStation[:15]

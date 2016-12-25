@@ -91,6 +91,7 @@ class RadioControl():
         subprocess.Popen(['mocp', '--clear'], shell=False)
         subprocess.Popen(['mocp', '-a', dir_path + '/streams/' + nextListItem['file'], '-c', '-p'])
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
+        self.piFaceThread.writeSecondLine("Loading...")
 
     def previous(self):
         self.piFaceThread.enableBacklight()
@@ -100,3 +101,4 @@ class RadioControl():
         subprocess.Popen(['mocp', '--clear'], shell=False)
         subprocess.Popen(['mocp', '-a', dir_path + '/streams/' + prevListItem['file'], '-c', '-p'])
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
+        self.piFaceThread.writeSecondLine("Loading...")

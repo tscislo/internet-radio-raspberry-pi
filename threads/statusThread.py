@@ -39,8 +39,8 @@ class StatusThread(Thread):
             self.state = mocpState['State']
         if 'Title' in mocpState and mocpState['Title'] != "":
             self.piFaceThread.writeSecondLine(mocpState['Title'])
-        else:
-            self.piFaceThread.writeSecondLine(" ")
+        elif self.state == "PLAY":
+            self.piFaceThread.clearSecondLine()
         if self.state:
             self.piFaceThread.writeFirstLine(bitmaps[self.state]['idx'], self.radioControl.getCurrentListItem()['name'])
             if self.state == "ERROR":
