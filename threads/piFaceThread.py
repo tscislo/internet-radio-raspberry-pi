@@ -17,6 +17,7 @@ class PiFaceThread(Thread):
         self.radioControl = None
         self.backLightTime = 0
         self.scrollCounter = 0
+        self.settings = None
         cad.lcd.blink_off()
         cad.lcd.cursor_off()
 
@@ -58,7 +59,7 @@ class PiFaceThread(Thread):
             cad.lcd.set_cursor(0, 1)
             cad.lcd.write(self.firstLine['new'][:16])
             self.firstLine['old'] = self.firstLine['new']
-        elif len(self.firstLine['new']) > 16:
+        elif self.firstLine['new'] and len(self.firstLine['new']) > 16:
             cad.lcd.set_cursor(0, 1)
             cad.lcd.write(self.firstLine['new'][self.scrollCounter:self.scrollCounter + 16])
             if self.scrollCounter == len(self.firstLine['new']):
@@ -71,6 +72,17 @@ class PiFaceThread(Thread):
         if self.secondLine['radioStation'] != None:
             cad.lcd.set_cursor(2, 0)
             cad.lcd.write(self.secondLine['radioStation'])
+
+    def processSettings(self):
+        settingsFromFile = self.settings.get()
+        if settingsFromFile:
+            self.radioControl.statusThread.state = settingsFromFile['state']
+            self.radioControl.stationIdx = settingsFromFile['stationIdx']
+            print('Settings')
+            print('state -> ' + str(settingsFromFile['state']))
+            print('stationIdx -> ' + str(settingsFromFile['stationIdx']))
+            if self.radioControl.statusThread.state == 'PLAY':
+                self.radioControl.play()
 
     def writeSecondLine(self, text):
         self.firstLine['new'] = text + " "

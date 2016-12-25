@@ -27,7 +27,7 @@ class StatusThread(Thread):
                     splittedStateJSON[splittedStateItem.split(':')[0]] = splittedStateItem.split(':')[1].strip(
                         ' \t\n\r')
         except:
-            splittedStateJSON['Error'] = 'Unknown playback error!'
+            splittedStateJSON['Error'] = 'Some error occurred... please restart the device!'
             pass
         return splittedStateJSON
 
@@ -43,3 +43,5 @@ class StatusThread(Thread):
             self.piFaceThread.writeSecondLine(" ")
         if self.state:
             self.piFaceThread.writeFirstLine(bitmaps[self.state]['idx'], self.radioControl.getCurrentListItem()['name'])
+            if self.state == "ERROR":
+                self.piFaceThread.writeSecondLine(mocpState['Error'])

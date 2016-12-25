@@ -9,7 +9,7 @@ class RadioControl():
         ''' Constructor. '''
         self.statusThread = None
         self.piFaceThread = None
-        self.idx = 0
+        self.stationIdx = 0
         self.list = [
             {
                 "name": "RMF Classic",
@@ -50,52 +50,53 @@ class RadioControl():
         ]
 
     def getNextListItem(self):
-        if self.idx >= len(self.list) - 1:
-            self.idx = 0
+        if self.stationIdx >= len(self.list) - 1:
+            self.stationIdx = 0
         else:
-            self.idx += 1
-        return self.list[self.idx]
+            self.stationIdx += 1
+        return self.list[self.stationIdx]
 
     def getPrevListItem(self):
-        if self.idx == 0:
-            self.idx = len(self.list) - 1
+        if self.stationIdx == 0:
+            self.stationIdx = len(self.list) - 1
         else:
-            self.idx -= 1
-        return self.list[self.idx]
+            self.stationIdx -= 1
+        return self.list[self.stationIdx]
 
     def getCurrentListItem(self):
-        return self.list[self.idx]
-
-    def startStatusThread(self):
-        try:
-            self.statusThread.start()
-        except:
-            pass
+        return self.list[self.stationIdx]
 
     def play_pause(self):
         self.piFaceThread.enableBacklight()
         if self.statusThread.state == 'PLAY':
-            print('Pausing...')
-            subprocess.Popen(['mocp', '--pause'], shell=False)
+            self.pause()
         if self.statusThread.state == 'PAUSE' or self.statusThread.state == 'STOP':
-            print('Playing...')
-            self.startStatusThread()
-            subprocess.Popen(['mocp', '-a', dir_path + '/streams/' + self.getCurrentListItem()['file'], '-c', '-p'])
+            self.play()
+
+    def play(self):
+        print('Playing...')
+        subprocess.Popen(['mocp', '-a', dir_path + '/streams/' + self.getCurrentListItem()['file'], '-c', '-p'])
+        self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
+
+    def pause(self):
+        print('Pausing...')
+        subprocess.Popen(['mocp', '--pause'], shell=False)
+        self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PAUSE'})
 
     def next(self):
         self.piFaceThread.enableBacklight()
-        self.startStatusThread()
         nextListItem = self.getNextListItem()
         print('Next... ' + nextListItem['name'])
         subprocess.Popen(['mocp', '--stop'], shell=False)
         subprocess.Popen(['mocp', '--clear'], shell=False)
         subprocess.Popen(['mocp', '-a', dir_path + '/streams/' + nextListItem['file'], '-c', '-p'])
+        self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
 
     def previous(self):
         self.piFaceThread.enableBacklight()
-        self.startStatusThread()
         prevListItem = self.getPrevListItem()
         print('Previous... ' + prevListItem['name'])
         subprocess.Popen(['mocp', '--stop'], shell=False)
         subprocess.Popen(['mocp', '--clear'], shell=False)
         subprocess.Popen(['mocp', '-a', dir_path + '/streams/' + prevListItem['file'], '-c', '-p'])
+        self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
