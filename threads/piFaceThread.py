@@ -24,7 +24,6 @@ class PiFaceThread(Thread):
         self.backLightTime = 100  # backlight on for 10 sec
 
     def run(self):
-        print('start PiFaceThread')
         self.handleKeys()
         while True:
             self.handleDisplay()

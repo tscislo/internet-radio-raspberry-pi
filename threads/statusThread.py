@@ -3,6 +3,7 @@ import time
 from subprocess import check_output
 from piFaceBitmaps import bitmaps
 
+
 class StatusThread(Thread):
     def __init__(self):
         ''' Constructor. '''
@@ -12,7 +13,6 @@ class StatusThread(Thread):
         self.daemon = True
 
     def run(self):
-        print('StatusThread')
         while (True):
             self.getPlaybackState()
             time.sleep(0.2)
@@ -31,7 +31,6 @@ class StatusThread(Thread):
             pass
         return splittedStateJSON
 
-
     def getPlaybackState(self):
         mocpState = self.getState()
         if 'Error' in mocpState:
@@ -42,5 +41,5 @@ class StatusThread(Thread):
             self.piFaceThread.writeSecondLine(mocpState['Title'])
         else:
             self.piFaceThread.writeSecondLine(" ")
-        self.piFaceThread.writeFirstLine(bitmaps[mocpState['State']]['idx'], self.radioControl.getCurrentListItem()['name'])
-
+        if self.state:
+            self.piFaceThread.writeFirstLine(bitmaps[self.state]['idx'], self.radioControl.getCurrentListItem()['name'])
