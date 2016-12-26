@@ -7,14 +7,16 @@ from piFaceBitmaps import bitmaps
 class StatusThread(Thread):
     def __init__(self):
         ''' Constructor. '''
-        self.state = "STOP"
+        self.playbackState = "STOP"
+        self.state = "DISABLED"
         self.radioControl = None
         Thread.__init__(self)
         self.daemon = True
 
     def run(self):
         while (True):
-            self.getPlaybackState()
+            if self.state == "ENABLED":
+                self.getPlaybackState()
             time.sleep(0.2)
 
     def getMocpState(self):
@@ -34,14 +36,15 @@ class StatusThread(Thread):
     def getPlaybackState(self):
         mocpState = self.getMocpState()
         if 'Error' in mocpState:
-            self.state = "ERROR"
+            self.playbackState = "ERROR"
         if 'State' in mocpState:
-            self.state = mocpState['State']
+            self.playbackState = mocpState['State']
         if 'Title' in mocpState and mocpState['Title'] != "":
             self.piFaceThread.writeSecondLine(mocpState['Title'])
-        elif self.state == "PLAY":
+        elif self.playbackState == "PLAY":
             self.piFaceThread.clearSecondLine()
-        if self.state:
-            self.piFaceThread.writeFirstLine(bitmaps[self.state]['idx'], self.radioControl.getCurrentListItem()['name'])
-            if self.state == "ERROR":
+        if self.playbackState:
+            self.piFaceThread.writeFirstLine(bitmaps[self.playbackState]['idx'],
+                                             self.radioControl.getCurrentListItem()['name'])
+            if self.playbackState == "ERROR":
                 self.piFaceThread.writeSecondLine(mocpState['Error'])

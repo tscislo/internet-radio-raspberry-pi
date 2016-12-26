@@ -4,6 +4,7 @@ import time
 
 cad = pifacecad.PiFaceCAD()
 
+
 class PiFaceThread(Thread):
     def __init__(self):
         ''' Constructor. '''
@@ -12,6 +13,7 @@ class PiFaceThread(Thread):
         self.firstLine = {'state': None, 'radioStation': None}
         self.bitmapSymbol = None
         self.radioControl = None
+        self.standbyThread = None
         self.backLightTime = 0
         self.scrollCounter = 0
         self.settings = None
@@ -30,11 +32,17 @@ class PiFaceThread(Thread):
 
     def handleKey(self, event):
         if event.pin_num == 0 or event.pin_num == 5:
-            self.radioControl.play_pause()
+            if self.standbyThread.state == "DISABLED":
+                self.radioControl.play_pause()
         elif event.pin_num == 1 or event.pin_num == 6:
-            self.radioControl.previous()
+            if self.standbyThread.state == "DISABLED":
+                self.radioControl.previous()
         elif event.pin_num == 2 or event.pin_num == 7:
-            self.radioControl.next()
+            if self.standbyThread.state == "DISABLED":
+                self.radioControl.next()
+        elif event.pin_num == 4:
+            self.enableBacklight()
+            self.standbyThread.enableDisable()
 
     def handleKeys(self):
         listener = pifacecad.SwitchEventListener(chip=cad)
@@ -73,13 +81,10 @@ class PiFaceThread(Thread):
     def processSettings(self):
         settingsFromFile = self.settings.get()
         if settingsFromFile:
-            self.radioControl.statusThread.state = settingsFromFile['state']
+            self.radioControl.statusThread.playbackState = settingsFromFile['state']
             self.radioControl.stationIdx = settingsFromFile['stationIdx']
             print('Settings')
-            print('state -> ' + str(settingsFromFile['state']))
             print('stationIdx -> ' + str(settingsFromFile['stationIdx']))
-            if self.radioControl.statusThread.state == 'PLAY':
-                self.radioControl.play()
 
     def writeSecondLine(self, text):
         self.secondLine['new'] = text + " "

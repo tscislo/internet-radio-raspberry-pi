@@ -20,6 +20,14 @@ class RadioControl():
                 "file": "rmf_muzykafilmowa.m3u"
             },
             {
+                "name": "RMF Chillout",
+                "file": "rmf_chillout.m3u"
+            },
+            {
+                "name": "RMF Celtic",
+                "file": "rmf_chillout.m3u"
+            },
+            {
                 "name": "RMF 70s",
                 "file": "rmf_70s.m3u"
             },
@@ -34,6 +42,10 @@ class RadioControl():
             {
                 "name": "RMF Latino",
                 "file": "rmf_latino.m3u"
+            },
+            {
+                "name": "RMF Cuba",
+                "file": "rmf_cuba.m3u"
             },
             {
                 "name": "RFI Monde",
@@ -68,9 +80,9 @@ class RadioControl():
 
     def play_pause(self):
         self.piFaceThread.enableBacklight()
-        if self.statusThread.state == 'PLAY':
+        if self.statusThread.playbackState == 'PLAY':
             self.pause()
-        if self.statusThread.state == 'PAUSE' or self.statusThread.state == 'STOP':
+        if self.statusThread.playbackState == 'PAUSE' or self.statusThread.playbackState == 'STOP':
             self.play()
 
     def play(self):
