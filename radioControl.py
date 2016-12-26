@@ -1,8 +1,5 @@
-import sys, os, subprocess
-import os
-
-dir_path = os.path.dirname(os.path.abspath(__file__))
-
+import subprocess
+from stationsList import stationsList
 
 class RadioControl():
     def __init__(self):
@@ -10,73 +7,23 @@ class RadioControl():
         self.statusThread = None
         self.piFaceThread = None
         self.stationIdx = 0
-        self.list = [
-            {
-                "name": "RMF Classic",
-                "file": "rmf_classic.m3u"
-            },
-            {
-                "name": "RMF Filmowa",
-                "file": "rmf_muzykafilmowa.m3u"
-            },
-            {
-                "name": "RMF Chillout",
-                "file": "rmf_chillout.m3u"
-            },
-            {
-                "name": "RMF Celtic",
-                "file": "rmf_chillout.m3u"
-            },
-            {
-                "name": "RMF 70s",
-                "file": "rmf_70s.m3u"
-            },
-            {
-                "name": "RMF 80s",
-                "file": "rmf_80s.m3u"
-            },
-            {
-                "name": "RMF Queen",
-                "file": "rmf_queen.m3u"
-            },
-            {
-                "name": "RMF Latino",
-                "file": "rmf_latino.m3u"
-            },
-            {
-                "name": "RMF Cuba",
-                "file": "rmf_cuba.m3u"
-            },
-            {
-                "name": "RFI Monde",
-                "file": "rfi_monde.m3u"
-            },
-            {
-                "name": "BBC 1",
-                "file": "bbc1.m3u"
-            },
-            {
-                "name": "BBC 2",
-                "file": "bbc2.m3u"
-            }
-        ]
 
     def getNextListItem(self):
-        if self.stationIdx >= len(self.list) - 1:
+        if self.stationIdx >= len(stationsList) - 1:
             self.stationIdx = 0
         else:
             self.stationIdx += 1
-        return self.list[self.stationIdx]
+        return stationsList[self.stationIdx]
 
     def getPrevListItem(self):
         if self.stationIdx == 0:
-            self.stationIdx = len(self.list) - 1
+            self.stationIdx = len(stationsList) - 1
         else:
             self.stationIdx -= 1
-        return self.list[self.stationIdx]
+        return stationsList[self.stationIdx]
 
     def getCurrentListItem(self):
-        return self.list[self.stationIdx]
+        return stationsList[self.stationIdx]
 
     def play_pause(self):
         self.piFaceThread.enableBacklight()
@@ -87,7 +34,7 @@ class RadioControl():
 
     def play(self):
         print('Playing...')
-        subprocess.Popen(['mocp', '-a', dir_path + '/streams/' + self.getCurrentListItem()['file'], '-c', '-p'])
+        subprocess.Popen(['mocp', '-a', self.getCurrentListItem()['stream'], '-c', '-p'])
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
 
     def pause(self):
@@ -101,7 +48,7 @@ class RadioControl():
         print('Next... ' + nextListItem['name'])
         subprocess.Popen(['mocp', '--stop'], shell=False)
         subprocess.Popen(['mocp', '--clear'], shell=False)
-        subprocess.Popen(['mocp', '-a', dir_path + '/streams/' + nextListItem['file'], '-c', '-p'])
+        subprocess.Popen(['mocp', '-a', nextListItem['stream'], '-c', '-p'])
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
         self.piFaceThread.writeSecondLine("Loading...")
 
@@ -111,6 +58,6 @@ class RadioControl():
         print('Previous... ' + prevListItem['name'])
         subprocess.Popen(['mocp', '--stop'], shell=False)
         subprocess.Popen(['mocp', '--clear'], shell=False)
-        subprocess.Popen(['mocp', '-a', dir_path + '/streams/' + prevListItem['file'], '-c', '-p'])
+        subprocess.Popen(['mocp', '-a', prevListItem['stream'], '-c', '-p'])
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
         self.piFaceThread.writeSecondLine("Loading...")
