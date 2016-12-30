@@ -61,3 +61,9 @@ class RadioControl():
         subprocess.Popen(['mocp', '-a', prevListItem['stream'], '-c', '-p'])
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
         self.piFaceThread.writeSecondLine("Loading...")
+
+    def volumeUp(self):
+        subprocess.Popen(['amixer', 'set', 'PCM', '1000+'], shell=False)
+
+    def volumeDown(self):
+        subprocess.Popen(['amixer', 'set', 'PCM', '1000-'], shell=False)

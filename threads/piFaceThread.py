@@ -34,12 +34,18 @@ class PiFaceThread(Thread):
         if event.pin_num == 0 or event.pin_num == 5:
             if self.standbyThread.state == "DISABLED":
                 self.radioControl.play_pause()
-        elif event.pin_num == 1 or event.pin_num == 6:
+        elif event.pin_num == 1:
             if self.standbyThread.state == "DISABLED":
                 self.radioControl.previous()
-        elif event.pin_num == 2 or event.pin_num == 7:
+        elif event.pin_num == 2:
             if self.standbyThread.state == "DISABLED":
                 self.radioControl.next()
+        elif event.pin_num == 6:
+            if self.standbyThread.state == "DISABLED":
+                self.radioControl.volumeDown()
+        elif event.pin_num == 7:
+            if self.standbyThread.state == "DISABLED":
+                self.radioControl.volumeUp()
         elif event.pin_num == 4:
             self.enableBacklight()
             self.standbyThread.enableDisable()
