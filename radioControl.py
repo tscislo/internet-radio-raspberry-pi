@@ -63,7 +63,11 @@ class RadioControl():
         self.piFaceThread.writeSecondLine("Loading...")
 
     def volumeUp(self):
+        self.piFaceThread.enableBacklight()
         subprocess.Popen(['amixer', 'set', 'PCM', '1000+'], shell=False)
+        self.piFaceThread.writeSecondLine("Volume up...")
 
     def volumeDown(self):
+        self.piFaceThread.enableBacklight()
         subprocess.Popen(['amixer', 'set', 'PCM', '1000-'], shell=False)
+        self.piFaceThread.writeSecondLine("Volume down...")
