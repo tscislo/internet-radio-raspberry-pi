@@ -25,24 +25,24 @@ class RadioControl():
     def getCurrentListItem(self):
         return stationsList[self.stationIdx]
 
-    def play_pause(self):
+    def play_pause(self, event=None):
         self.piFaceThread.enableBacklight()
         if self.statusThread.playbackState == 'PLAY':
             self.pause()
         if self.statusThread.playbackState == 'PAUSE' or self.statusThread.playbackState == 'STOP':
             self.play()
 
-    def play(self):
+    def play(self, event=None):
         print('Playing...')
         subprocess.Popen(['mocp', '-a', self.getCurrentListItem()['stream'], '-c', '-p'])
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
 
-    def pause(self):
+    def pause(self, event=None):
         print('Pausing...')
         subprocess.Popen(['mocp', '--pause'], shell=False)
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PAUSE'})
 
-    def next(self):
+    def next(self, event=None):
         self.piFaceThread.enableBacklight()
         nextListItem = self.getNextListItem()
         print('Next... ' + nextListItem['name'])
@@ -52,7 +52,7 @@ class RadioControl():
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
         self.piFaceThread.writeSecondLine("Loading...")
 
-    def previous(self):
+    def previous(self, event=None):
         self.piFaceThread.enableBacklight()
         prevListItem = self.getPrevListItem()
         print('Previous... ' + prevListItem['name'])
@@ -62,12 +62,12 @@ class RadioControl():
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
         self.piFaceThread.writeSecondLine("Loading...")
 
-    def volumeUp(self):
+    def volumeUp(self, event=None):
         self.piFaceThread.enableBacklight()
         subprocess.Popen(['amixer', 'set', 'PCM', '1000+'], shell=False)
         self.piFaceThread.writeSecondLine("Volume up...")
 
-    def volumeDown(self):
+    def volumeDown(self, event=None):
         self.piFaceThread.enableBacklight()
         subprocess.Popen(['amixer', 'set', 'PCM', '1000-'], shell=False)
         self.piFaceThread.writeSecondLine("Volume down...")

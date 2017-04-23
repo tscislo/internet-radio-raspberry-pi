@@ -20,15 +20,29 @@ class PiFaceThread(Thread):
         cad.lcd.blink_off()
         cad.lcd.cursor_off()
 
+    def handleIR(self):
+        listener = pifacecad.IREventListener("internet_radio")
+        listener.register('on_off', self.enableDisable)
+        listener.register('next', self.radioControl.next)
+        listener.register('prev', self.radioControl.previous)
+        listener.register('play', self.radioControl.play_pause)
+        listener.register('stop', self.radioControl.pause)
+        listener.activate()
+
     def enableBacklight(self):
         self.backLightTime = 100  # backlight on for 10 sec
 
     def run(self):
         self.handleKeys()
+        self.handleIR()
         while True:
             self.handleDisplay()
             self.handleBacklight()
             time.sleep(0.1)
+
+    def enableDisable(self, event=None):
+        self.enableBacklight()
+        self.standbyThread.enableDisable()
 
     def handleKey(self, event):
         if event.pin_num == 0 or event.pin_num == 5:
@@ -47,8 +61,7 @@ class PiFaceThread(Thread):
             if self.standbyThread.state == "DISABLED":
                 self.radioControl.volumeUp()
         elif event.pin_num == 4:
-            self.enableBacklight()
-            self.standbyThread.enableDisable()
+            self.enableDisable()
 
     def handleKeys(self):
         listener = pifacecad.SwitchEventListener(chip=cad)
