@@ -1,5 +1,13 @@
 stationsList = [
     {
+        "name": "Radio ZET",
+        "stream": "http://n-1-11.dcs.redcdn.pl/sc/o2/Eurozet/live/audio.livx"
+    },
+    {
+        "name": "RMF FM",
+        "stream": "http://195.150.20.243/RMFFM48"
+    },
+    {
         "name": "RMF Classic",
         "stream": "http://195.150.20.7/RMFCLASSIC48"
     },
@@ -12,8 +20,8 @@ stationsList = [
         "stream": "http://31.192.216.10/CHILLOUT"
     },
     {
-        "name": "RMF Celtic",
-        "stream": "http://31.192.216.4/CELTIC"
+        "name": "RMF Michael Jackson",
+        "stream": "http://195.150.20.5/MICHALEJACKSON"
     },
     {
         "name": "RMF 70s",
