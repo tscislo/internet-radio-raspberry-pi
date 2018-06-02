@@ -4,44 +4,77 @@ stationsList = [
         "stream": "http://n-1-11.dcs.redcdn.pl/sc/o2/Eurozet/live/audio.livx"
     },
     {
-        "name": "RMF FM",
-        "stream": "http://195.150.20.243/RMFFM48"
+        "name": "Chilli ZET",
+        "stream": "https://n-1-1.dcs.redcdn.pl/sc/o2/Eurozet/live/chillizet.livx?audio=5"
     },
     {
-        "name": "RMF Classic",
-        "stream": "http://195.150.20.7/RMFCLASSIC48"
+        "name": "ZET Gold",
+        "stream": "http://zgl01.cdn.eurozet.pl:8506/ZGLHIT.mp3"
     },
     {
-        "name": "RMF Filmowa",
-        "stream": "http://195.150.20.5/MUZYKAFILMOWA"
+        "name": "Meloradio",
+        "stream": "http://mel02.cdn.eurozet.pl:8800/mel-net.mp3"
     },
     {
-        "name": "RMF Chillout",
-        "stream": "http://31.192.216.10/CHILLOUT"
+        "name": "Cinemix",
+        "stream": "http://94.23.51.96:8001/;"
     },
     {
-        "name": "RMF Michael Jackson",
-        "stream": "http://195.150.20.5/MICHALEJACKSON"
+        "name": "Soundtracks",
+        "stream": "http://hi5.streamingsoundtracks.com/;"
     },
     {
-        "name": "RMF 70s",
-        "stream": "http://195.150.20.9/70S"
+        "name": "Radio Mambo",
+        "stream": "http://178.32.139.184:8060/;"
     },
     {
-        "name": "RMF 80s",
-        "stream": "http://195.150.20.9/80S"
+        "name": "Salsa Warriors",
+        "stream": "http://192.99.17.12:6031/;stream/1"
     },
+    # TODO: Below RMF stations are no reliable anymore
+    # {
+    #     "name": "RMF FM",
+    #     "stream": "http://195.150.20.242:8000/rmf_fm"
+    # },
+    # {
+    #     "name": "RMF Classic",
+    #     "stream": "http://195.150.20.242:8000/rmf_classic"
+    # },
+    # {
+    #     "name": "RMF Filmowa",
+    #     "stream": "http://195.150.20.5/MUZYKAFILMOWA"
+    # },
+    # {
+    #     "name": "RMF Chillout",
+    #     "stream": "http://31.192.216.10/CHILLOUT"
+    # },
+    # {
+    #     "name": "RMF Michael Jackson",
+    #     "stream": "http://195.150.20.5/MICHALEJACKSON"
+    # },
+    # {
+    #     "name": "RMF 70s",
+    #     "stream": "http://195.150.20.9/70S"
+    # },
+    # {
+    #     "name": "RMF 80s",
+    #     "stream": "http://195.150.20.9/80S"
+    # },
+    # {
+    #     "name": "RMF Queen",
+    #     "stream": "http://195.150.20.8/QUEEN"
+    # },
+    # {
+    #     "name": "RMF Latino",
+    #     "stream": "http://195.150.20.5/LATINO"
+    # },
+    # {
+    #     "name": "RMF Cuba",
+    #     "stream": "http://195.150.20.242:8000/rmf_cuba"
+    # },
     {
-        "name": "RMF Queen",
-        "stream": "http://195.150.20.8/QUEEN"
-    },
-    {
-        "name": "RMF Latino",
-        "stream": "http://195.150.20.5/LATINO"
-    },
-    {
-        "name": "RMF Cuba",
-        "stream": "http://31.192.216.10/CUBA"
+        "name": "Fox News",
+        "stream": "http://streaming-ent.shoutcast.com/foxnews"
     },
     {
         "name": "RFI Monde",
