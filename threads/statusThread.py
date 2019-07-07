@@ -29,12 +29,18 @@ class StatusThread(Thread):
                     splittedStateJSON[splittedStateItem.split(':')[0]] = splittedStateItem.split(':')[1].strip(
                         ' \t\n\r')
         except:
-            splittedStateJSON['Error'] = 'Some error occurred... please restart the device!'
+            splittedStateJSON['Error'] = 'Some error occurred... retrying last operation...'
             pass
         return splittedStateJSON
 
+    def retryLastOperation(self):
+        if self.playbackState == "PLAY":
+            self.radioControl.retry_playback()
+
     def getPlaybackState(self):
         mocpState = self.getMocpState()
+        if 'Error' in mocpState:
+            self.retryLastOperation()
         if 'Error' in mocpState:
             self.playbackState = "ERROR"
         if 'State' in mocpState:

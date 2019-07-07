@@ -27,6 +27,7 @@ class PiFaceThread(Thread):
         listener.register('prev', self.radioControl.previous)
         listener.register('play', self.radioControl.play_pause)
         listener.register('stop', self.radioControl.pause)
+        listener.register('retry_playback', self.radioControl.retry_playback)
         listener.activate()
 
     def enableBacklight(self):

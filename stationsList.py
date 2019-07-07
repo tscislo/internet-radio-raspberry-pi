@@ -4,8 +4,8 @@ stationsList = [
         "stream": "http://n-1-11.dcs.redcdn.pl/sc/o2/Eurozet/live/audio.livx"
     },
     {
-        "name": "Chilli ZET",
-        "stream": "https://n-1-1.dcs.redcdn.pl/sc/o2/Eurozet/live/chillizet.livx?audio=5"
+        "name": "Polskie Radio 24",
+        "stream": "http://stream3.polskieradio.pl:8080"
     },
     {
         "name": "ZET Gold",
@@ -24,6 +24,10 @@ stationsList = [
         "stream": "http://hi5.streamingsoundtracks.com/;"
     },
     {
+        "name": "James Bond 007",
+        "stream": "http://stream.laut.fm/007"
+    },
+    {
         "name": "Radio Mambo",
         "stream": "http://178.32.139.184:8060/;"
     },
@@ -31,47 +35,10 @@ stationsList = [
         "name": "Salsa Warriors",
         "stream": "http://192.99.17.12:6031/;stream/1"
     },
-    # TODO: Below RMF stations are no reliable anymore
-    # {
-    #     "name": "RMF FM",
-    #     "stream": "http://195.150.20.242:8000/rmf_fm"
-    # },
-    # {
-    #     "name": "RMF Classic",
-    #     "stream": "http://195.150.20.242:8000/rmf_classic"
-    # },
-    # {
-    #     "name": "RMF Filmowa",
-    #     "stream": "http://195.150.20.5/MUZYKAFILMOWA"
-    # },
-    # {
-    #     "name": "RMF Chillout",
-    #     "stream": "http://31.192.216.10/CHILLOUT"
-    # },
-    # {
-    #     "name": "RMF Michael Jackson",
-    #     "stream": "http://195.150.20.5/MICHALEJACKSON"
-    # },
-    # {
-    #     "name": "RMF 70s",
-    #     "stream": "http://195.150.20.9/70S"
-    # },
-    # {
-    #     "name": "RMF 80s",
-    #     "stream": "http://195.150.20.9/80S"
-    # },
-    # {
-    #     "name": "RMF Queen",
-    #     "stream": "http://195.150.20.8/QUEEN"
-    # },
-    # {
-    #     "name": "RMF Latino",
-    #     "stream": "http://195.150.20.5/LATINO"
-    # },
-    # {
-    #     "name": "RMF Cuba",
-    #     "stream": "http://195.150.20.242:8000/rmf_cuba"
-    # },
+    {
+        "name": "Salsa AMS",
+        "stream": "http://82.94.166.107:8067/;stream/1"
+    },
     {
         "name": "Fox News",
         "stream": "http://streaming-ent.shoutcast.com/foxnews"

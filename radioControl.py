@@ -1,6 +1,7 @@
 import subprocess
 from stationsList import stationsList
 
+
 class RadioControl():
     def __init__(self):
         ''' Constructor. '''
@@ -41,6 +42,13 @@ class RadioControl():
         print('Pausing...')
         subprocess.Popen(['mocp', '--pause'], shell=False)
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PAUSE'})
+
+    def retry_playback(self, event=None):
+        self.piFaceThread.enableBacklight()
+        print('Retry playback...')
+        subprocess.Popen(['mocp', '--stop'], shell=False)
+        subprocess.Popen(['mocp', '--clear'], shell=False)
+        subprocess.Popen(['mocp', '-a', self.getCurrentListItem()['stream'], '-c', '-p'])
 
     def next(self, event=None):
         self.piFaceThread.enableBacklight()
