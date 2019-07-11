@@ -40,8 +40,6 @@ class StatusThread(Thread):
     def getPlaybackState(self):
         mocpState = self.getMocpState()
         if 'Error' in mocpState:
-            self.retryLastOperation()
-        if 'Error' in mocpState:
             self.playbackState = "ERROR"
         if 'State' in mocpState:
             self.playbackState = mocpState['State']
@@ -54,3 +52,4 @@ class StatusThread(Thread):
                                              self.radioControl.getCurrentListItem()['name'])
             if self.playbackState == "ERROR":
                 self.piFaceThread.writeSecondLine(mocpState['Error'])
+                self.retryLastOperation()

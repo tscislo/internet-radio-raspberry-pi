@@ -13,6 +13,12 @@ class StandByThread(Thread):
         self.state = "ENABLED"
         Thread.__init__(self)
 
+    def isDisabled(self):
+        if self.state == "DISABLED":
+            return True
+        else:
+            return False
+
     def run(self):
         while (True):
             if self.state == "ENABLED":

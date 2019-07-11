@@ -23,12 +23,13 @@ class PiFaceThread(Thread):
     def handleIR(self):
         listener = pifacecad.IREventListener("internet_radio")
         listener.register('on_off', self.enableDisable)
-        listener.register('next', self.radioControl.next)
-        listener.register('prev', self.radioControl.previous)
-        listener.register('play', self.radioControl.play_pause)
-        listener.register('stop', self.radioControl.pause)
-        listener.register('retry_playback', self.radioControl.retry_playback)
+        listener.register('next', lambda x: self.radioControl.next() if self.standbyThread.isDisabled() else "")
+        listener.register('prev', lambda x: self.radioControl.previous() if self.standbyThread.isDisabled() else "")
+        listener.register('play', lambda x: self.radioControl.play_pause() if self.standbyThread.isDisabled() else "")
+        listener.register('stop', lambda x: self.radioControl.pause() if self.standbyThread.isDisabled() else "")
+        listener.register('retry_playback', lambda x: self.radioControl.retry_playback() if self.standbyThread.isDisabled() else "")
         listener.activate()
+
 
     def enableBacklight(self):
         self.backLightTime = 100  # backlight on for 10 sec
@@ -47,19 +48,19 @@ class PiFaceThread(Thread):
 
     def handleKey(self, event):
         if event.pin_num == 0 or event.pin_num == 5:
-            if self.standbyThread.state == "DISABLED":
+            if self.standbyThread.isDisabled():
                 self.radioControl.play_pause()
         elif event.pin_num == 1:
-            if self.standbyThread.state == "DISABLED":
+            if self.standbyThread.isDisabled():
                 self.radioControl.previous()
         elif event.pin_num == 2:
-            if self.standbyThread.state == "DISABLED":
+            if self.standbyThread.isDisabled():
                 self.radioControl.next()
         elif event.pin_num == 6:
-            if self.standbyThread.state == "DISABLED":
+            if self.standbyThread.isDisabled():
                 self.radioControl.volumeDown()
         elif event.pin_num == 7:
-            if self.standbyThread.state == "DISABLED":
+            if self.standbyThread.isDisabled():
                 self.radioControl.volumeUp()
         elif event.pin_num == 4:
             self.enableDisable()
