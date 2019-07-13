@@ -29,7 +29,7 @@ class StatusThread(Thread):
                     splittedStateJSON[splittedStateItem.split(':')[0]] = splittedStateItem.split(':')[1].strip(
                         ' \t\n\r')
         except:
-            splittedStateJSON['Error'] = 'Some error occurred... retrying last operation...'
+            splittedStateJSON['Error'] = 'Some error has occurred...'
             pass
         return splittedStateJSON
 
@@ -52,4 +52,3 @@ class StatusThread(Thread):
                                              self.radioControl.getCurrentListItem()['name'])
             if self.playbackState == "ERROR":
                 self.piFaceThread.writeSecondLine(mocpState['Error'])
-                self.retryLastOperation()
