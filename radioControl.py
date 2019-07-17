@@ -1,5 +1,5 @@
 import subprocess
-from stationsList import stationsList
+from streams import Streams
 
 
 class RadioControl():
@@ -8,23 +8,34 @@ class RadioControl():
         self.statusThread = None
         self.piFaceThread = None
         self.stationIdx = 0
+        self.streams = Streams()
 
     def getNextListItem(self):
-        if self.stationIdx >= len(stationsList) - 1:
+        if self.stationIdx >= len(self.streams.get()) - 1:
             self.stationIdx = 0
         else:
             self.stationIdx += 1
-        return stationsList[self.stationIdx]
+        return self.streams.get()[self.stationIdx]
 
     def getPrevListItem(self):
         if self.stationIdx == 0:
-            self.stationIdx = len(stationsList) - 1
+            self.stationIdx = len(self.streams.get()) - 1
         else:
             self.stationIdx -= 1
-        return stationsList[self.stationIdx]
+        return self.streams.get()[self.stationIdx]
 
     def getCurrentListItem(self):
-        return stationsList[self.stationIdx]
+        return self.streams.get()[self.stationIdx]
+
+    def nextOnList(self):
+        print('Next track...')
+        self.piFaceThread.enableBacklight()
+        subprocess.Popen(['mocp', '-f'])
+
+    def prevOnList(self):
+        print('Prev track...')
+        self.piFaceThread.enableBacklight()
+        subprocess.Popen(['mocp', '-r'])
 
     def play_pause(self, event=None):
         self.piFaceThread.enableBacklight()
