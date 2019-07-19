@@ -9,72 +9,72 @@ class Streams():
             {
                 "name": "Radio ZET",
                 "stream": "http://n-1-11.dcs.redcdn.pl/sc/o2/Eurozet/live/audio.livx",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "Polskie Radio 24",
                 "stream": "http://stream3.polskieradio.pl:8080",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "ZET Gold",
                 "stream": "http://zgl01.cdn.eurozet.pl:8506/ZGLHIT.mp3",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "Meloradio",
                 "stream": "http://mel02.cdn.eurozet.pl:8800/mel-net.mp3",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "Cinemix",
                 "stream": "http://94.23.51.96:8001/;",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "Soundtracks",
                 "stream": "http://hi5.streamingsoundtracks.com/;",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "James Bond 007",
                 "stream": "http://stream.laut.fm/007",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "Radio Mambo",
                 "stream": "http://178.32.139.184:8060/;",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "Salsa Warriors",
                 "stream": "http://192.99.17.12:6031/;stream/1",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "Salsa AMS",
                 "stream": "http://82.94.166.107:8067/;stream/1",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "Fox News",
                 "stream": "http://streaming-ent.shoutcast.com/foxnews",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "RFI Monde",
                 "stream": "http://live02.rfi.fr/rfimonde-96k.mp3",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "BBC 1",
                 "stream": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p",
-                "isRadio": "true"
+                "isRadio": True
             },
             {
                 "name": "BBC 2",
                 "stream": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p",
-                "isRadio": "true"
+                "isRadio": True
             }
         ]
 
@@ -83,7 +83,7 @@ class Streams():
             if len(dirs):
                 extraStreams = []
                 for dir in dirs:
-                    extraStreams.append({"name": dir, "stream": self.root + "/" + dir, "isRadio": "false"})
+                    extraStreams.append({"name": dir, "stream": self.root + "/" + dir, "isRadio": False})
                 allStreams = extraStreams + self.predefinedStreams
                 allStreams.sort(key=lambda stream: (stream["isRadio"], stream["name"]), reverse=False)
                 return allStreams

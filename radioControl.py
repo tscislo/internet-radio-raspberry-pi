@@ -28,14 +28,16 @@ class RadioControl():
         return self.streams.get()[self.stationIdx]
 
     def nextOnList(self):
-        print('Next track...')
-        self.piFaceThread.enableBacklight()
-        subprocess.Popen(['mocp', '-f'])
+        if self.getCurrentListItem()['isRadio'] == False:
+            print('Next track...')
+            self.piFaceThread.enableBacklight()
+            subprocess.Popen(['mocp', '-f'])
 
     def prevOnList(self):
-        print('Prev track...')
-        self.piFaceThread.enableBacklight()
-        subprocess.Popen(['mocp', '-r'])
+        if self.getCurrentListItem()['isRadio'] == False:
+            print('Prev track...')
+            self.piFaceThread.enableBacklight()
+            subprocess.Popen(['mocp', '-r'])
 
     def play_pause(self, event=None):
         self.piFaceThread.enableBacklight()
@@ -46,8 +48,16 @@ class RadioControl():
 
     def play(self, event=None):
         print('Playing...')
-        subprocess.Popen(['mocp', '-a', self.getCurrentListItem()['stream'], '-c', '-p'])
+        if self.statusThread.playbackState == 'PAUSE':
+            subprocess.Popen(['mocp', '--unpause'], shell=False)
+        else:
+            subprocess.Popen(['mocp', '-a', self.getCurrentListItem()['stream'], '-c', '-p'])
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
+
+    def stop(self, event=None):
+        print('Stopping...')
+        subprocess.Popen(['mocp', '--stop'], shell=False)
+        self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'STOP'})
 
     def pause(self, event=None):
         print('Pausing...')

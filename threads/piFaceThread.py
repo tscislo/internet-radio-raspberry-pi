@@ -26,7 +26,8 @@ class PiFaceThread(Thread):
         listener.register('next', lambda x: self.radioControl.next() if self.standbyThread.isDisabled() else "")
         listener.register('prev', lambda x: self.radioControl.previous() if self.standbyThread.isDisabled() else "")
         listener.register('play', lambda x: self.radioControl.play_pause() if self.standbyThread.isDisabled() else "")
-        listener.register('stop', lambda x: self.radioControl.pause() if self.standbyThread.isDisabled() else "")
+        listener.register('pause', lambda x: self.radioControl.pause() if self.standbyThread.isDisabled() else "")
+        listener.register('stop', lambda x: self.radioControl.stop() if self.standbyThread.isDisabled() else "")
         listener.register('retry_playback', lambda x: self.radioControl.retry_playback() if self.standbyThread.isDisabled() else "")
         listener.register('next_track',
                           lambda x: self.radioControl.nextOnList() if self.standbyThread.isDisabled() else "")
