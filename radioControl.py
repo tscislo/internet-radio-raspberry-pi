@@ -51,7 +51,7 @@ class RadioControl():
         if self.statusThread.playbackState == 'PAUSE':
             subprocess.Popen(['mocp', '--unpause'], shell=False)
         else:
-            subprocess.Popen(['mocp', '-a', self.getCurrentListItem()['stream'], '-c', '-p'])
+            self.startNewListPlayBack(self.getCurrentListItem()['stream'])
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
 
     def stop(self, event=None):
@@ -69,7 +69,7 @@ class RadioControl():
         print('Retry playback...')
         subprocess.Popen(['mocp', '--stop'], shell=False)
         subprocess.Popen(['mocp', '--clear'], shell=False)
-        subprocess.Popen(['mocp', '-a', self.getCurrentListItem()['stream'], '-c', '-p'])
+        self.startNewListPlayBack(self.getCurrentListItem()['stream'])
 
     def next(self, event=None):
         self.piFaceThread.enableBacklight()
@@ -77,7 +77,7 @@ class RadioControl():
         print('Next... ' + nextListItem['name'])
         subprocess.Popen(['mocp', '--stop'], shell=False)
         subprocess.Popen(['mocp', '--clear'], shell=False)
-        subprocess.Popen(['mocp', '-a', nextListItem['stream'], '-c', '-p'])
+        self.startNewListPlayBack(nextListItem['stream'])
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
         self.piFaceThread.writeSecondLine("Loading...")
 
@@ -87,7 +87,7 @@ class RadioControl():
         print('Previous... ' + prevListItem['name'])
         subprocess.Popen(['mocp', '--stop'], shell=False)
         subprocess.Popen(['mocp', '--clear'], shell=False)
-        subprocess.Popen(['mocp', '-a', prevListItem['stream'], '-c', '-p'])
+        self.startNewListPlayBack(prevListItem['stream'])
         self.piFaceThread.settings.set({'stationIdx': self.stationIdx, 'state': 'PLAY'})
         self.piFaceThread.writeSecondLine("Loading...")
 
@@ -100,3 +100,6 @@ class RadioControl():
         self.piFaceThread.enableBacklight()
         subprocess.Popen(['amixer', 'set', 'PCM', '1000-'], shell=False)
         self.piFaceThread.writeSecondLine("Volume down...")
+
+    def startNewListPlayBack(self, listItem):
+        subprocess.Popen(['mocp', '-a', listItem, '-c', '-p', '-t', 'repeat'])
