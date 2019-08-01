@@ -102,4 +102,4 @@ class RadioControl():
         self.piFaceThread.writeSecondLine("Volume down...")
 
     def startNewListPlayBack(self, listItem):
-        subprocess.Popen(['mocp', '-a', listItem, '-c', '-p', '-t', 'repeat'])
+        subprocess.Popen(['mocp', '-a', listItem, '-c', '-p', '--on', 'repeat', '--on', 'shuffle'])
