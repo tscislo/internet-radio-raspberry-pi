@@ -27,6 +27,11 @@ class Streams():
                 "isRadio": True
             },
             {
+                "name": "Ballads",
+                "stream": "http://37.187.57.33:8110/stream",
+                "isRadio": True
+            },
+            {
                 "name": "Cinemix",
                 "stream": "http://94.23.51.96:8001/;",
                 "isRadio": True
