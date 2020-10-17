@@ -27,8 +27,18 @@ class Streams():
                 "isRadio": True
             },
             {
-                "name": "Ballads",
-                "stream": "http://37.187.57.33:8110/stream",
+                "name": "Elton John",
+                "stream": "http://streaming.exclusive.radio/er/eltonjohn/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Madonna Radio",
+                "stream": "http://streaming.exclusive.radio/er/madonna/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Country Radio",
+                "stream": "http://icepool.silvacast.com/COUNTRY108.mp3",
                 "isRadio": True
             },
             {
