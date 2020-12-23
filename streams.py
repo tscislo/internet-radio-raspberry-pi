@@ -105,6 +105,16 @@ class Streams():
                 "name": "Christmas 3",
                 "stream": "http://tuner.m1.fm/M1-XMAS.mp3",
                 "isRadio": True
+            },
+            {
+                "name": "Koledy 1",
+                "stream": "http://31.192.216.7/KOLEDY",
+                "isRadio": True
+            },
+            {
+                "name": "Koledy 2",
+                "stream": "http://zt04.cdn.eurozet.pl/ZETKOL.mp3",
+                "isRadio": True
             }
         ]
 
