@@ -27,13 +27,68 @@ class Streams():
                 "isRadio": True
             },
             {
-                "name": "Elton John",
+                "name": "Elton John Radio",
                 "stream": "http://streaming.exclusive.radio/er/eltonjohn/icecast.audio",
                 "isRadio": True
             },
             {
                 "name": "Madonna Radio",
                 "stream": "http://streaming.exclusive.radio/er/madonna/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Elvis Presley Radio",
+                "stream": "http://streaming.exclusive.radio/er/elvispresley/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Paul McCartney Radio",
+                "stream": "http://streaming.exclusive.radio/er/paulmccartney/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "George Michael Radio",
+                "stream": "http://streaming.exclusive.radio/er/georgemichael/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Abba Radio",
+                "stream": "http://streaming.exclusive.radio/er/abba/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Coldplay Radio",
+                "stream": "http://streaming.exclusive.radio/er/coldplay/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Ed Sheeran Radio",
+                "stream": "http://streaming.exclusive.radio/er/edsheeran/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Johnny Cash Radio",
+                "stream": "http://streaming.exclusive.radio/er/johnnycash/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Phil Collins Radio",
+                "stream": "http://streaming.exclusive.radio/er/philcollins/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Scorpions Radio",
+                "stream": "http://streaming.exclusive.radio/er/scorpions/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Shakira Radio",
+                "stream": "http://streaming.exclusive.radio/er/shakira/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Whitney Houston Radio",
+                "stream": "http://streaming.exclusive.radio/er/whitneyhouston/icecast.audio",
                 "isRadio": True
             },
             {
@@ -91,31 +146,31 @@ class Streams():
                 "stream": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p",
                 "isRadio": True
             },
-            {
-                "name": "Christmas 1",
-                "stream": "http://node-05.zeno.fm/aae9yc3ygnruv?rj-ttl=5&rj-tok=AAABdo8S4DcAoTqG00pxZjP_MQ",
-                "isRadio": True
-            },
-            {
-                "name": "Christmas 2",
-                "stream": "http://str2b.openstream.co/1312?aw_0_1st.collectionid=4427&stationId=4427&publisherId=1336&k=1608717935",
-                "isRadio": True
-            },
-            {
-                "name": "Christmas 3",
-                "stream": "http://tuner.m1.fm/M1-XMAS.mp3",
-                "isRadio": True
-            },
-            {
-                "name": "Koledy 1",
-                "stream": "http://31.192.216.7/KOLEDY",
-                "isRadio": True
-            },
-            {
-                "name": "Koledy 2",
-                "stream": "http://zt04.cdn.eurozet.pl/ZETKOL.mp3",
-                "isRadio": True
-            }
+            # {
+            #     "name": "Christmas 1",
+            #     "stream": "http://node-05.zeno.fm/aae9yc3ygnruv?rj-ttl=5&rj-tok=AAABdo8S4DcAoTqG00pxZjP_MQ",
+            #     "isRadio": True
+            # },
+            # {
+            #     "name": "Christmas 2",
+            #     "stream": "http://str2b.openstream.co/1312?aw_0_1st.collectionid=4427&stationId=4427&publisherId=1336&k=1608717935",
+            #     "isRadio": True
+            # },
+            # {
+            #     "name": "Christmas 3",
+            #     "stream": "http://tuner.m1.fm/M1-XMAS.mp3",
+            #     "isRadio": True
+            # },
+            # {
+            #     "name": "Koledy 1",
+            #     "stream": "http://31.192.216.7/KOLEDY",
+            #     "isRadio": True
+            # },
+            # {
+            #     "name": "Koledy 2",
+            #     "stream": "http://zt04.cdn.eurozet.pl/ZETKOL.mp3",
+            #     "isRadio": True
+            # }
         ]
 
     def get(self):
