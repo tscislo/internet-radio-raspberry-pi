@@ -14,7 +14,7 @@ class StatusThread(Thread):
         self.daemon = True
 
     def run(self):
-        while (True):
+        while True:
             if self.state == "ENABLED":
                 self.getPlaybackState()
             time.sleep(0.2)

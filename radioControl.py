@@ -28,13 +28,13 @@ class RadioControl():
         return self.streams.get()[self.stationIdx]
 
     def nextOnList(self):
-        if self.getCurrentListItem()['isRadio'] == False:
+        if not self.getCurrentListItem()['isRadio']:
             print('Next track...')
             self.piFaceThread.enableBacklight()
             subprocess.Popen(['mocp', '-f'])
 
     def prevOnList(self):
-        if self.getCurrentListItem()['isRadio'] == False:
+        if not self.getCurrentListItem()['isRadio']:
             print('Prev track...')
             self.piFaceThread.enableBacklight()
             subprocess.Popen(['mocp', '-r'])

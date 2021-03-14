@@ -97,10 +97,10 @@ class PiFaceThread(Thread):
                 self.scrollCounter = 0
             else:
                 self.scrollCounter += 1
-        if self.firstLine['state'] != None:
+        if self.firstLine['state'] is not None:
             cad.lcd.set_cursor(0, 0)
             cad.lcd.write_custom_bitmap(self.firstLine['state'])
-        if self.firstLine['radioStation'] != None:
+        if self.firstLine['radioStation'] is not None:
             cad.lcd.set_cursor(2, 0)
             cad.lcd.write(self.firstLine['radioStation'])
 

@@ -20,7 +20,7 @@ class StandByThread(Thread):
             return False
 
     def run(self):
-        while (True):
+        while True:
             if self.state == "ENABLED":
                 self.now = datetime.datetime.now()
                 self.piFaceThread.writeFirstLine(bitmaps['CLOCK']['idx'], self.now.strftime("%H:%M:%S"))
