@@ -82,6 +82,16 @@ class Streams():
                 "isRadio": True
             },
             {
+                "name": "Beach Boys",
+                "stream": "http://streaming.exclusive.radio/er/beachboys/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Gloria Estefan",
+                "stream": "http://streaming.exclusive.radio/er/gloriaestefan/icecast.audio",
+                "isRadio": True
+            },
+            {
                 "name": "Shakira Radio",
                 "stream": "http://streaming.exclusive.radio/er/shakira/icecast.audio",
                 "isRadio": True
