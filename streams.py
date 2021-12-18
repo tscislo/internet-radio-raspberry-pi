@@ -156,31 +156,26 @@ class Streams():
                 "stream": "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p",
                 "isRadio": True
             },
-            # {
-            #     "name": "Christmas 1",
-            #     "stream": "http://node-05.zeno.fm/aae9yc3ygnruv?rj-ttl=5&rj-tok=AAABdo8S4DcAoTqG00pxZjP_MQ",
-            #     "isRadio": True
-            # },
-            # {
-            #     "name": "Christmas 2",
-            #     "stream": "http://str2b.openstream.co/1312?aw_0_1st.collectionid=4427&stationId=4427&publisherId=1336&k=1608717935",
-            #     "isRadio": True
-            # },
-            # {
-            #     "name": "Christmas 3",
-            #     "stream": "http://tuner.m1.fm/M1-XMAS.mp3",
-            #     "isRadio": True
-            # },
-            # {
-            #     "name": "Koledy 1",
-            #     "stream": "http://31.192.216.7/KOLEDY",
-            #     "isRadio": True
-            # },
-            # {
-            #     "name": "Koledy 2",
-            #     "stream": "http://zt04.cdn.eurozet.pl/ZETKOL.mp3",
-            #     "isRadio": True
-            # }
+            {
+                "name": "Christmas 1",
+                "stream": "http://node-05.zeno.fm/aae9yc3ygnruv?rj-ttl=5&rj-tok=AAABdo8S4DcAoTqG00pxZjP_MQ",
+                "isRadio": True
+            },
+            {
+                "name": "Christmas 2",
+                "stream": "http://tuner.m1.fm/M1-XMAS.mp3",
+                "isRadio": True
+            },
+            {
+                "name": "Koledy 1",
+                "stream": "http://31.192.216.7/KOLEDY",
+                "isRadio": True
+            },
+            {
+                "name": "Koledy 2",
+                "stream": "http://zt04.cdn.eurozet.pl/ZETKOL.mp3",
+                "isRadio": True
+            }
         ]
 
     def get(self):
