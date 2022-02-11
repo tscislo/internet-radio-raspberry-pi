@@ -157,25 +157,50 @@ class Streams():
                 "isRadio": True
             },
             {
-                "name": "Christmas 1",
-                "stream": "http://node-05.zeno.fm/aae9yc3ygnruv?rj-ttl=5&rj-tok=AAABdo8S4DcAoTqG00pxZjP_MQ",
+                "name": "Beatles",
+                "stream": "http://streaming.exclusive.radio/er/beatles/icecast.audio",
                 "isRadio": True
             },
             {
-                "name": "Christmas 2",
-                "stream": "http://tuner.m1.fm/M1-XMAS.mp3",
+                "name": "Celine Dion",
+                "stream": "http://streaming.exclusive.radio/er/celinedion/icecast.audio",
                 "isRadio": True
             },
             {
-                "name": "Koledy 1",
-                "stream": "http://31.192.216.7/KOLEDY",
+                "name": "Dire Straits",
+                "stream": "http://streaming.exclusive.radio/er/direstraits/icecast.audio",
                 "isRadio": True
             },
             {
-                "name": "Koledy 2",
-                "stream": "http://zt04.cdn.eurozet.pl/ZETKOL.mp3",
+                "name": "Tears for Fears",
+                "stream": "http://streaming.exclusive.radio/er/tearsforfears/icecast.audio",
+                "isRadio": True
+            },
+            {
+                "name": "Moby",
+                "stream": "http://streaming.exclusive.radio/er/moby/icecast.audio",
                 "isRadio": True
             }
+            # {
+            #     "name": "Christmas 1",
+            #     "stream": "http://node-05.zeno.fm/aae9yc3ygnruv?rj-ttl=5&rj-tok=AAABdo8S4DcAoTqG00pxZjP_MQ",
+            #     "isRadio": True
+            # },
+            # {
+            #     "name": "Christmas 2",
+            #     "stream": "http://tuner.m1.fm/M1-XMAS.mp3",
+            #     "isRadio": True
+            # },
+            # {
+            #     "name": "Koledy 1",
+            #     "stream": "http://31.192.216.7/KOLEDY",
+            #     "isRadio": True
+            # },
+            # {
+            #     "name": "Koledy 2",
+            #     "stream": "http://zt04.cdn.eurozet.pl/ZETKOL.mp3",
+            #     "isRadio": True
+            # }
         ]
 
     def get(self):
