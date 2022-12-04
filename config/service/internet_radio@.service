@@ -1,0 +1,16 @@
+[Unit]
+Description = Internet Radio
+After = network.target
+
+[Service]
+Type = simple
+ExecStart = python /home/pi/python/internet_radio/main.py
+User = pi
+Group = adm
+Restart = on-failure
+SyslogIdentifier = internet_radio_log
+RestartSec = 5
+TimeoutStartSec = infinity
+
+[Install]
+WantedBy = multi-user.target

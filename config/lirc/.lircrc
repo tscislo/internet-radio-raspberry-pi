@@ -1,0 +1,53 @@
+begin
+  prog = internet_radio
+  button = BTN_0
+  config = prev
+end
+
+begin
+  prog = internet_radio
+  button = BTN_1
+  config = next
+end
+
+begin
+  prog = internet_radio
+  button = BTN_2
+  config = stop
+end
+
+begin
+  prog = internet_radio
+  button = BTN_3
+  config = play
+end
+
+begin
+  prog = internet_radio
+  button = BTN_4
+  config = on_off
+end
+
+begin
+  prog = internet_radio
+  button = BTN_5
+  config = retry_playback
+end
+
+begin
+  prog = internet_radio
+  button = BTN_6
+  config = prev_track
+end
+
+begin
+  prog = internet_radio
+  button = BTN_7
+  config = next_track
+end
+
+begin
+  prog = internet_radio
+  button = BTN_8
+  config = pause
+end
