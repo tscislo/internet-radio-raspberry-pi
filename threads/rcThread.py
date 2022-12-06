@@ -16,9 +16,8 @@ class RCThread(Thread):
 
     def handleRC(self):
         data = decode(receive(23))
-        keys = {}
         if data:
-            keys['keyname'] = data
+            keys = {'keyname': data}
             keyname = prettify(keys)['keys']['keyname']
             mappedToAction = gpioRCKeyMap.get(keyname)
             if mappedToAction:

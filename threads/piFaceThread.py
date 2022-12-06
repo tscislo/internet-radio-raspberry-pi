@@ -1,11 +1,6 @@
 from threading import Thread
 import pifacecad as pifacecad
 import time
-from piir.io import receive
-from piir.decode import decode
-from piir.prettify import prettify
-
-from gpioRCKeyMap import gpioRCKeyMap
 
 cad = pifacecad.PiFaceCAD()
 
@@ -25,32 +20,14 @@ class PiFaceThread(Thread):
         cad.lcd.blink_off()
         cad.lcd.cursor_off()
 
-    def handleIR(self):
-        listener = pifacecad.IREventListener("internet_radio")
-        listener.register('on_off', self.enableDisable)
-        listener.register('next', lambda x: self.radioControl.next() if self.standbyThread.isDisabled() else "")
-        listener.register('prev', lambda x: self.radioControl.previous() if self.standbyThread.isDisabled() else "")
-        listener.register('play', lambda x: self.radioControl.play_pause() if self.standbyThread.isDisabled() else "")
-        listener.register('pause', lambda x: self.radioControl.pause() if self.standbyThread.isDisabled() else "")
-        listener.register('stop', lambda x: self.radioControl.stop() if self.standbyThread.isDisabled() else "")
-        listener.register('retry_playback', lambda x: self.radioControl.retry_playback() if self.standbyThread.isDisabled() else "")
-        listener.register('next_track',
-                          lambda x: self.radioControl.nextOnList() if self.standbyThread.isDisabled() else "")
-        listener.register('prev_track',
-                          lambda x: self.radioControl.prevOnList() if self.standbyThread.isDisabled() else "")
-        listener.activate()
-
-
     def enableBacklight(self):
         self.backLightTime = 100  # backlight on for 10 sec
 
     def run(self):
         self.handleKeys()
-        # self.handleIR()
         while True:
             self.handleDisplay()
             self.handleBacklight()
-            # self.handleRC()
             time.sleep(0.1)
 
     def enableDisable(self, event=None):
