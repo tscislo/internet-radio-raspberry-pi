@@ -5,6 +5,7 @@ from settings import Settings
 from radioControl import RadioControl
 from threads.piFaceThread import PiFaceThread
 from threads.standbyThread import StandByThread
+from threads.rcThread import RCThread
 
 if __name__ == "__main__":
     print('Internet radio starting...')
@@ -14,6 +15,10 @@ if __name__ == "__main__":
     statusThread = StatusThread()
     piFaceThread = PiFaceThread()
     standbyThread = StandByThread()
+    rcThread = RCThread()
+    rcThread.radioControl = radioControl
+    rcThread.standByThread = standbyThread
+    rcThread.piFaceThread = piFaceThread
     standbyThread.piFaceThread = piFaceThread
     standbyThread.statusThread = statusThread
     settings = Settings()
@@ -28,5 +33,6 @@ if __name__ == "__main__":
     piFaceThread.processSettings()
     statusThread.start()
     standbyThread.start()
+    rcThread.start()
     piFaceThread.enableBacklight()
     print('Internet radio started...')

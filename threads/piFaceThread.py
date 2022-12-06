@@ -1,6 +1,11 @@
 from threading import Thread
 import pifacecad as pifacecad
 import time
+from piir.io import receive
+from piir.decode import decode
+from piir.prettify import prettify
+
+from gpioRCKeyMap import gpioRCKeyMap
 
 cad = pifacecad.PiFaceCAD()
 
@@ -41,10 +46,11 @@ class PiFaceThread(Thread):
 
     def run(self):
         self.handleKeys()
-        self.handleIR()
+        # self.handleIR()
         while True:
             self.handleDisplay()
             self.handleBacklight()
+            # self.handleRC()
             time.sleep(0.1)
 
     def enableDisable(self, event=None):

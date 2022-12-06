@@ -9,3 +9,7 @@ Hardware prerequisites
 Software prerequisites
 * Python3
 * mocp
+* GPIO https://pypi.org/project/PiIR/
+
+GPIO HOWTO:
+https://raspberrypi.stackexchange.com/questions/140163/lirc-and-raspberry-os-bullseye
