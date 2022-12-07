@@ -22,6 +22,7 @@ class RCThread(Thread):
                 keyname = prettify(keys)['keys']['keyname']
                 mappedToAction = gpioRCKeyMap.get(keyname)
                 if mappedToAction:
+                    print('[RC key pressed]', mappedToAction)
                     if mappedToAction == 'on_off':
                         self.piFaceThread.enableDisable()
                     elif self.standByThread.isDisabled() and getattr(self.radioControl, mappedToAction):
