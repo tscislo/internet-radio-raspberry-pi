@@ -28,7 +28,10 @@ class RCThread(Thread):
                         getattr(self.radioControl, mappedToAction)()
             time.sleep(0.1)
         except OSError:
-            print("[RCThread] unable to decode RC signals")
+            print("[RCThread] unable to decode RC signals because of error with piFace")
+            time.sleep(1)
+        except:
+            print("[RCThread] unable to decode RC signals due to other error!")
             time.sleep(1)
 
     def run(self):
