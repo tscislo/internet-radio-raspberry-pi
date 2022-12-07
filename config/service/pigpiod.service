@@ -1,0 +1,10 @@
+[Unit]
+Description=Daemon required to control GPIO pins via pigpio
+[Service]
+ExecStartPre=/bin/sleep 5
+ExecStart=/usr/bin/pigpiod -l
+ExecStop=/bin/systemctl kill pigpiod
+Type=forking
+After=internet_radio@pi.service
+[Install]
+WantedBy=multi-user.target

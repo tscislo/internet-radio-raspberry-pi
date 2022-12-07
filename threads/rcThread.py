@@ -15,18 +15,22 @@ class RCThread(Thread):
         self.piFaceThread = None
 
     def handleRC(self):
-        data = decode(receive(23))
-        if data:
-            keys = {'keyname': data}
-            keyname = prettify(keys)['keys']['keyname']
-            mappedToAction = gpioRCKeyMap.get(keyname)
-            if mappedToAction:
-                if mappedToAction == 'on_off':
-                    self.piFaceThread.enableDisable()
-                elif self.standByThread.isDisabled() and getattr(self.radioControl, mappedToAction):
-                    getattr(self.radioControl, mappedToAction)()
+        try:
+            data = decode(receive(23))
+            if data:
+                keys = {'keyname': data}
+                keyname = prettify(keys)['keys']['keyname']
+                mappedToAction = gpioRCKeyMap.get(keyname)
+                if mappedToAction:
+                    if mappedToAction == 'on_off':
+                        self.piFaceThread.enableDisable()
+                    elif self.standByThread.isDisabled() and getattr(self.radioControl, mappedToAction):
+                        getattr(self.radioControl, mappedToAction)()
+            time.sleep(0.1)
+        except OSError:
+            print("[RCThread] unable to decode RC signals")
+            time.sleep(1)
 
     def run(self):
         while True:
             self.handleRC()
-            time.sleep(0.1)
